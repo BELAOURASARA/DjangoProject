@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path,os
 
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = 'home_page'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Templates Directory
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
 
+# Templates Directory
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,7 +60,7 @@ ROOT_URLCONF = 'myapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,9 +84,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'projectdb',
         'USER':'postgres',
-        'PASSWORD':'admin',
+        'PASSWORD':'maroua',
         'HOST':'127.0.0.1',
-        'PORT':'5432',
+        'PORT':'5433',
+    
     }
 }
 
