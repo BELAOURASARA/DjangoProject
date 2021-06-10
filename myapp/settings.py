@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+<<<<<<< HEAD
 from pathlib import Path,os
+=======
+from pathlib import Path
+import os
+>>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
@@ -30,6 +35,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+<<<<<<< HEAD
+=======
+# Templates Directory
+TEMPLATE_DIR = os.path.join(BASE_DIR,"app/templates")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "app/static"),
+]
+
+>>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
 
 # Templates Directory
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
@@ -128,11 +142,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/app/static/'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 
 
