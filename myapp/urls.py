@@ -15,25 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import include
 from django.contrib import admin
-<<<<<<< HEAD
+
 from django.urls import path,re_path
 from app import views
 from django.conf.urls import include
+app_name = "app"
 urlpatterns = [
     path('',views.home_page,name="home_page"),
     path('admin/', admin.site.urls),
     path('signup/', views.signup, name='signup'),
     path('login/', views.user_login, name='login'),
-    path('accounts/', include('django.contrib.auth.urls'))
-]
-=======
-from django.urls import path
-from app import views
-
-
-app_name = "app"
-urlpatterns = [
-    path('', views.index),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.index),
     path('recupererList/', views.recupererList),
     path('affecterSalle/', views.affecterSalle),
@@ -42,6 +34,10 @@ urlpatterns = [
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
     path('downloadFile/', views.downloadFile, name='downloadFile'),
-   
 ]
->>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
+
+
+
+
+
+

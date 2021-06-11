@@ -22,7 +22,7 @@ class InputForm(forms.ModelForm):
         model = User
         fields = ("first_name","last_name","email","username")
 
-<<<<<<< HEAD
+
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
@@ -32,11 +32,6 @@ class InputForm(forms.ModelForm):
                 code='password_mismatch',
             )
         return password2
-=======
-from django import forms
-
->>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
-
     def save(self, commit=True):
         
         user = super(InputForm, self).save(commit=False)
@@ -44,6 +39,7 @@ from django import forms
         if commit:
             user.save()
         return user
+    
 class UserLaureat(models.Model):
         # This field is required.
         user = models.OneToOneField(User,on_delete=models.CASCADE)
