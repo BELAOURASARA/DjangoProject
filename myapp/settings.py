@@ -10,9 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+<<<<<<< HEAD
+from pathlib import Path,os
+=======
 from pathlib import Path
 import os
+>>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
 
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = 'home_page'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,13 +35,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+<<<<<<< HEAD
+=======
 # Templates Directory
 TEMPLATE_DIR = os.path.join(BASE_DIR,"app/templates")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "app/static"),
 ]
 
+>>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
 
+# Templates Directory
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,7 +74,7 @@ ROOT_URLCONF = 'myapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,9 +98,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'projectdb',
         'USER':'postgres',
-        'PASSWORD':'admin',
+        'PASSWORD':'maroua',
         'HOST':'127.0.0.1',
-        'PORT':'5432',
+        'PORT':'5433',
+    
     }
 }
 
