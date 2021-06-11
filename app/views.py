@@ -1,3 +1,4 @@
+from django import http
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse  
@@ -51,19 +52,62 @@ def user_login(request):
               #return render(request,'app/login.html', {}, context)
      
 
-
-
 def index(request) :
     return render(request,'index.html', {})
 
 def recupererList(request) :
-    return render(request,'examples/recupererList.html', {})
+    return render(request,'de/recupererList.html', {})
 
-def affecterSalle(request) :
-    return render(request,'examples/affecterSalles.html', {})    
+def affecterSalle(request) :   
+    if "GET" == request.method:
+        return render(request,'de/affecterSalles.html', {})   
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+
+        
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        nb_total=0
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+            nb_total=nb_total+1
     
+    request.session['excel'] = excel_data
+            
+    return render(request, "de/affecterSalles.html", {"excel_data":excel_data,"excel_file":excel_file,"nb_total":nb_total})
+
 def affecterSurveillant(request) :
-    return render(request,'examples/affectationSurveillant.html', {}) 
+    if "GET" == request.method:
+        return render(request,'de/AffectationSurveillant.html', {}) 
+    else: 
+      return render(request,'de/AffectationSurveillant.html', {}) 
+
+
+
+def validerSalles(request):
+    validated=True
+    excel_data=request.session['excel']
+    nb_total=0
+    for row in excel_data :
+        nb_total=nb_total+1 
+        """ each row is a row in the database"""
+    
+    return render(request,'de/affecterSalles.html', {"validated":validated,"excel_data":excel_data,"nb_total":nb_total})
+ 
+
+"""============================================================================="""
 
 def importFile(request): 
     
@@ -88,7 +132,7 @@ def importFile(request):
             for cell in row:
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
-
+        
         return render(request, "importFile.html", {"excel_data":excel_data})
 
 
@@ -138,7 +182,5 @@ def downloadFile(request):
         return response 
           
     else: 
-         return render(request,'examples/recupererList.html', {})
-
-    
+         return render(request,'de/recupererList.html', {})
 

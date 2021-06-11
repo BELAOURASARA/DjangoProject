@@ -64,4 +64,5 @@ class Affect(models.Model):
    
    
 
+
    
