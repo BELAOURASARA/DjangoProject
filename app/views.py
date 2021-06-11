@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-<<<<<<< HEAD
+
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import InputForm
@@ -11,7 +11,34 @@ from django.template import RequestContext
 
 def home_page(request):
     return render(request,'app/home.html',{})
+def  login_page(request):
+    return render(request,'registration/login.html',{})
+def loginn(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            print("You are Logged in") 
+        else:
+            print("Please Enter Valid Email or Password")
+    return render(request, 'app/home.html')    
+def connexion(request):
+   
+    if request.method == "POST":
+        email= request.POST.get("email")
+      
+        password = request.POST.get("password")
+    
+        user = authenticate(email=email , password=password)  # Nous vérifions si les données sont correctes
+        if user is not None:  # Si l'objet renvoyé n'est pas None
+          login(request, user)  # nous connectons l'utilisateur
+          return redirect ('home_page')
+        else:
+         return redirect('signup') 
+    else: # sinon une erreur sera affichée
+        return redirect('signup')
 
 def signup(request):
     if request.method == 'POST':
@@ -23,24 +50,27 @@ def signup(request):
             email = form.cleaned_data.get('email')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username,password=raw_password)
-            login(request,user)
+            user = authenticate(email=email,password=raw_password)
+            if user is not None:  # Si l'objet renvoyé n'est pas None
+                login(request, user)  # nous connectons l'utilisateur
+                return redirect ('home_page')
+            else:
+                return redirect('signup') 
            
-            return redirect('home_page')
+            return redirect('index')
     else:
         form = InputForm()
     return render(request, 'app/signup.html', {'form': form})
 def user_login(request):
-    context = RequestContext(request)
     if request.method == 'POST':
-          email = request.POST['email']
-          password = request.POST['password']
+          email = request.POST.get['email']
+          password = request.POST.get['password']
           user = authenticate(email=email, password=password)
           if user is not None:
               
                   login(request,user)
                   # Redirect to index page.
-                  return redirect('home_page')
+                  return redirect('index.html')
               
                   
           else:
@@ -48,8 +78,12 @@ def user_login(request):
               print ( "invalid login details " + email + " " + password)
               #return render(request,'app/login.html', {}, context)
      
+    else:
+     return render(request, 'registration/login.html')
+
+           
 # Create your views here.
-=======
+
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
@@ -131,4 +165,4 @@ def downloadFile(request):
         return render(request, "downloadFile.html")
     
 
->>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
+

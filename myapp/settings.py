@@ -10,12 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-<<<<<<< HEAD
+
 from pathlib import Path,os
-=======
+
 from pathlib import Path
 import os
->>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
+
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
@@ -35,15 +35,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-<<<<<<< HEAD
-=======
+
+
 # Templates Directory
 TEMPLATE_DIR = os.path.join(BASE_DIR,"app/templates")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "app/static"),
 ]
 
->>>>>>> 17c62db8abd3ed36306db273f06dd70b152bbd4b
 
 # Templates Directory
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
@@ -96,7 +95,7 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projectdb',
+        'NAME': 'project',
         'USER':'postgres',
         'PASSWORD':'maroua',
         'HOST':'127.0.0.1',
@@ -151,6 +150,8 @@ STATIC_URL = '/app/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+AUTHENTICATION_BACKENDS = (
+    'app.authentication.EmailBackend',
+)
 
 

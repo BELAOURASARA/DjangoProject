@@ -71,22 +71,13 @@
               <div class="text-muted text-center mt-2 mb-3"><h1>Connexion</h1></div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              {% if next %}  
-              {% if user.is_authenticated %}
-              <p>Your account doesn't have access to this page. To proceed,
-              please login with an account that has access.</p>
-              {% else %}
-              <p>Please login to see this page.</p>
-             {% endif %}
-             {% endif %}
-              <form role="form" method="POST" action="{% url 'login' %}" >
-                {% csrf_token %}
+              <form role="form" method="post" action="{% url 'login' %}" >
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" name="username" placeholder="Email" type="email" >
+                    <input class="form-control" name="email" placeholder="Email" type="email" value="{{form.username}}">
                   </div>
                 </div>
                 <div class="form-group">
@@ -94,8 +85,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" name="password" placeholder="Mot de passe" type="password">
-            
+                    <input class="form-control" name="password" placeholder="Mot de passe" type="password" value="form.password">
                   </div>
                 </div>
                 <div class="custom-control custom-control-alternative custom-checkbox">
@@ -105,7 +95,7 @@
                   </label>
                 </div>
                 <div class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="login">
+                  <button type="submit" class="btn btn-primary my-4" value="login">Connexion</button>
                 </div>
               </form>
             </div>
@@ -143,9 +133,3 @@
 </body>
 
 </html>
-
-
-
-
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
