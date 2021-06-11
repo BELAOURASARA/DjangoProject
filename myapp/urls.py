@@ -22,6 +22,10 @@ from app import views
 app_name = "app"
 urlpatterns = [
     path('', views.index),
+    path('index/', views.index),
+    path('recupererList/', views.recupererList),
+    path('affecterSalle/', views.affecterSalle),
+    path('affecterSurveillant/', views.affecterSurveillant),
     path('admin/', admin.site.urls),
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),

@@ -8,6 +8,15 @@ import openpyxl
 def index(request) :
     return render(request,'index.html', {})
 
+def recupererList(request) :
+    return render(request,'examples/recupererList.html', {})
+
+def affecterSalle(request) :
+    return render(request,'examples/affecterSalles.html', {})    
+    
+def affecterSurveillant(request) :
+    return render(request,'examples/affectationSurveillant.html', {}) 
+
 def importFile(request): 
     
     if "GET" == request.method:
@@ -57,17 +66,20 @@ def uploadFile(request):
 
 
 def downloadFile(request):
-  
-
     if request.method == 'POST':  
         # Define Django project base directory
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         # Define text file name
-        filename = request.POST.get("file_name")
+        x=dict(request.POST.items())
+        if 'SIQ' in request.POST :
+            filename="liste_siq.xlsx"
+        elif 'SIT' in request.POST  :
+            filename="liste_sit.xlsx"
+       
         # Define the full file path
-        filepath = BASE_DIR + '/myapp/static/upload/' + filename
+        filepath = BASE_DIR + '/app/static/upload/' + filename
         # Open the file for reading content
-        path = open(filepath, 'r')
+        path = open(filepath, 'r' ,encoding="cp437")
         # Set the mime type
         mime_type, _ = mimetypes.guess_type(filepath)
         # Set the return value of the HttpResponse
@@ -76,8 +88,9 @@ def downloadFile(request):
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         # Return the response value
         return response 
-         
+          
     else: 
-        return render(request, "downloadFile.html")
+         return render(request,'examples/recupererList.html', {})
+
     
 
