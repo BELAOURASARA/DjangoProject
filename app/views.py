@@ -1,6 +1,8 @@
 from django import http
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from .models import Type
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
@@ -13,8 +15,49 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
+
+
+def redirection(request):
+    idd=request.user.id
+    u = User.objects.get(id=idd)
+    u1=Type.objects.get(id=idd)
+    if u1.Type==0:   
+     return render(request,'index.html',{})
+    else:
+        if u1.Type==1:
+          return render(request,'app/home.html',{})#la page d'acceuil de la DE
+        else:
+           return render(request,'correcteur/dashboard_correcteur.html',{})   
 def home_page(request):
     return render(request,'app/home.html',{})
+def  login_page(request):
+    return render(request,'registration/login.html',{})
+def loginn(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            print("You are Logged in") 
+        else:
+            print("Please Enter Valid Email or Password")
+    return render(request, 'app/home.html')    
+def connexion(request):
+   
+    if request.method == "POST":
+        email= request.POST.get("email")
+      
+        password = request.POST.get("password")
+    
+        user = authenticate(email=email , password=password)  # Nous vérifions si les données sont correctes
+        if user is not None:  # Si l'objet renvoyé n'est pas None
+          login(request, user)  # nous connectons l'utilisateur
+          return redirect ('home_page')
+        else:
+         return redirect('signup') 
+    else: # sinon une erreur sera affichée
+        return redirect('signup')
 
 def signup(request):
     if request.method == 'POST':
@@ -26,24 +69,28 @@ def signup(request):
             email = form.cleaned_data.get('email')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username,password=raw_password)
-            login(request,user)
            
-            return redirect('home_page')
+            user = authenticate(email=email,password=raw_password)
+            if user is not None:  # Si l'objet renvoyé n'est pas None
+                login(request, user)  # nous connectons l'utilisateur
+                return redirect ('home_page')
+            else:
+                return redirect('signup') 
+           
+            return redirect('index')
     else:
         form = InputForm()
     return render(request, 'app/signup.html', {'form': form})
 def user_login(request):
-    context = RequestContext(request)
     if request.method == 'POST':
-          email = request.POST['email']
-          password = request.POST['password']
+          email = request.POST.get['email']
+          password = request.POST.get['password']
           user = authenticate(email=email, password=password)
           if user is not None:
               
                   login(request,user)
                   # Redirect to index page.
-                  return redirect('home_page')
+                  return redirect('index.html')
               
                   
           else:
@@ -51,6 +98,16 @@ def user_login(request):
               print ( "invalid login details " + email + " " + password)
               #return render(request,'app/login.html', {}, context)
      
+    else:
+     return render(request, 'registration/login.html')
+
+           
+# Create your views here.
+
+from django.http import HttpResponse  
+from app.functions.functions import handle_uploaded_file  
+from .forms import StudentForm   
+import openpyxl
 
 def index(request) :
     return render(request,'index.html', {})
@@ -183,4 +240,5 @@ def downloadFile(request):
           
     else: 
          return render(request,'de/recupererList.html', {})
+
 

@@ -20,10 +20,27 @@ from django.urls import path,re_path
 from app import views
 from django.conf.urls import include
 app_name = "app"
+#urlpatterns = [
+   # path('',views.home_page,name="home_page"),
+    #path('signup/', views.signup, name='signup'),
+
+   # path('login/', views.login_page, name='login_page'),
+   # path('loginacc/', views.loginn, name='loginacc'),
+   # path('accounts/', include('django.contrib.auth.urls')),
+    #path('', views.index,name="index"),
+    #path('admin/', admin.site.urls),
+    #path('importFile/', views.importFile, name='importFile'),
+   # path('uploadFile/', views.uploadFile, name='uploadFile'),
+   # path('downloadFile/', views.downloadFile, name='downloadFile')
+   
+#]
 urlpatterns = [
-    path('',views.home_page,name="home_page"),
-    path('admin/', admin.site.urls),
     path('signup/', views.signup, name='signup'),
+
+   # path('login/', views.login_page, name='login_page'),
+   # path('loginacc/', views.loginn, name='loginacc'),
+   # path('accounts/', include('django.contrib.auth.urls')),
+    path('redirection/', views.redirection, name='redirection'),
     path('login/', views.user_login, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.index),
@@ -38,6 +55,7 @@ urlpatterns = [
 
 ]
 """path('validerSalles/<str:excel_file>', views.validerSalles, name='validerSalles'),"""
+
 
 
 
