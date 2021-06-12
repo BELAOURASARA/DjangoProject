@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 
+
 from pathlib import Path,os
+
 
 from pathlib import Path
 import os
@@ -19,7 +21,7 @@ import os
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = 'home_page'
+LOGIN_REDIRECT_URL = 'redirection'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +36,7 @@ SECRET_KEY = 'django-insecure-v6@03tm=+%w*29mtlf(r8lj63f1%px7k!jb!2km!*2*&#n7&1f
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 
 
 
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'myapp.urls'

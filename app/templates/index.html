@@ -1,4 +1,4 @@
-“{% load static %}”
+{% load static %}
 <!--
 =========================================================
 * Argon Dashboard - v1.2.0
@@ -9,7 +9,7 @@
 * Copyright  Creative Tim (http://www.creative-tim.com)
 * Coded by www.creative-tim.com
 
-
+“{% load static %}”
 
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -51,27 +51,33 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">
+              <a class="nav-link active" href="/index">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Accueil</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/recupererList.html">
+              <a class="nav-link" href="/recupererList">
                 <i class="ni ni-planet text-orange"></i>
                 <span class="nav-link-text">Récupérer liste</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/affecterSalles.html">
+              <a class="nav-link" href="/affecterSalle">
                 <i class="ni ni-pin-3 text-primary"></i>
-                <span class="nav-link-text">Affectation des salles</span>
+                <span class="nav-link-text">Affecter les salles</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/AffectationSurvelliant.html">
+              <a class="nav-link" href="/affecterSurveillant">
                 <i class="ni ni-single-02 text-yellow"></i>
-                <span class="nav-link-text">Affectation des surveillants</span>
+                <span class="nav-link-text">Affecter les surveillants</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="examples/ReleverPresence.html">
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Relever les présences</span>
               </a>
             </li>
           </ul>
@@ -332,9 +338,8 @@
               <div class="col-sm py-2">
                 <div class="card">
                   <div class="card-body">
-                    <div class="float-right text-muted small">Jan 9th 2019 7:00 AM</div>
-                    <h4 class="card-title text-muted">Day 1 Orientation</h4>
-                    <p class="card-text">Welcome to the campus, introduction and get started with the tour.</p>
+                    <div class="float-right text-muted small">10 / 02 / 2022</div>
+                    <h4 class="card-title text-muted">Récupérer liste candidats</h4>
                   </div>
                 </div>
               </div>
@@ -345,9 +350,9 @@
               <div class="col-sm py-2">
                 <div class="card shadow">
                   <div class="card-body">
-                    <div class="float-right small">Jan 10th 2019 8:30 AM</div>
-                    <h4 class="card-title">Day 2 Sessions</h4>
-                    <p class="card-text">Sign-up for the lessons and speakers that coincide with your course syllabus. Meet and greet with instructors.</p>
+                    <div class="float-right text-muted small">11 / 02 / 2022</div>
+                    <h4 class="card-title text-muted">Affectation des salles</h4>  
+                    <h4 class="card-title text-muted">Affectation des surveillants</h4> 
                   </div>
                 </div>
               </div>
@@ -386,41 +391,15 @@
               <div class="col-sm py-2">
                 <div class="card">
                   <div class="card-body">
-                    <div class="float-right text-muted small">Jan 11th 2019 8:30 AM</div>
-                    <h4 class="card-title">Day 3 Sessions</h4>
-                    <p>Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo Park Godard kogi, next level irony ennui twee squid fap selvage. Meggings flannel Brooklyn literally small batch, mumblecore PBR try-hard kale chips. Brooklyn vinyl lumbersexual
-                      bicycle rights, viral fap cronut leggings squid chillwave pickled gentrify mustache.</p>
+                    <div class="float-right text-muted small">13 / 02 / 2022</div>
+                    <h4 class="card-title text-muted">Concours</h4>  
+                    <h4 class="card-title text-muted">Relever les présences</h4> 
                   </div>
                 </div>
               </div>
             </div>
             <!--/row-->
             <!-- timeline item 4 -->
-            <div class="row no-gutters">
-              <div class="col-sm py-2">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="float-right text-muted small">Jan 12th 2019 11:30 AM</div>
-                    <h4 class="card-title">Day 4 Wrap-up</h4>
-                    <p>Join us for lunch in Bootsy's cafe across from the Campus Center.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-1 text-center flex-column d-none d-sm-flex">
-                <div class="row h-50">
-                  <div class="col border-right">&nbsp;</div>
-                  <div class="col">&nbsp;</div>
-                </div>
-                <h5 class="m-2">
-                  <span class="badge badge-pill bg-light border">&nbsp;</span>
-                </h5>
-                <div class="row h-50">
-                  <div class="col">&nbsp;</div>
-                  <div class="col">&nbsp;</div>
-                </div>
-              </div>
-              <div class="col-sm"> <!--spacer--> </div>
-            </div>
             <!--/row-->
           </div>
           <!--container-->   

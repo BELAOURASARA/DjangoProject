@@ -1,6 +1,12 @@
+from django import http
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
+from django.contrib.auth.models import User
+from .models import Type
+from django.http import HttpResponse  
+from app.functions.functions import handle_uploaded_file  
+from .forms import StudentForm   
+import openpyxl
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import InputForm
@@ -9,6 +15,19 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 
+
+
+def redirection(request):
+    idd=request.user.id
+    u = User.objects.get(id=idd)
+    u1=Type.objects.get(id=idd)
+    if u1.Type==0:   
+     return render(request,'index.html',{})
+    else:
+        if u1.Type==1:
+          return render(request,'app/home.html',{})#la page d'acceuil de la DE
+        else:
+           return render(request,'correcteur/dashboard_correcteur.html',{})   
 def home_page(request):
     return render(request,'app/home.html',{})
 def  login_page(request):
@@ -50,6 +69,7 @@ def signup(request):
             email = form.cleaned_data.get('email')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
+           
             user = authenticate(email=email,password=raw_password)
             if user is not None:  # Si l'objet renvoyé n'est pas None
                 login(request, user)  # nous connectons l'utilisateur
@@ -92,6 +112,60 @@ import openpyxl
 def index(request) :
     return render(request,'index.html', {})
 
+def recupererList(request) :
+    return render(request,'de/recupererList.html', {})
+
+def affecterSalle(request) :   
+    if "GET" == request.method:
+        return render(request,'de/affecterSalles.html', {})   
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+
+        
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        nb_total=0
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+            nb_total=nb_total+1
+    
+    request.session['excel'] = excel_data
+            
+    return render(request, "de/affecterSalles.html", {"excel_data":excel_data,"excel_file":excel_file,"nb_total":nb_total})
+
+def affecterSurveillant(request) :
+    if "GET" == request.method:
+        return render(request,'de/AffectationSurveillant.html', {}) 
+    else: 
+      return render(request,'de/AffectationSurveillant.html', {}) 
+
+
+
+def validerSalles(request):
+    validated=True
+    excel_data=request.session['excel']
+    nb_total=0
+    for row in excel_data :
+        nb_total=nb_total+1 
+        """ each row is a row in the database"""
+    
+    return render(request,'de/affecterSalles.html', {"validated":validated,"excel_data":excel_data,"nb_total":nb_total})
+ 
+
+"""============================================================================="""
+
 def importFile(request): 
     
     if "GET" == request.method:
@@ -115,7 +189,7 @@ def importFile(request):
             for cell in row:
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
-
+        
         return render(request, "importFile.html", {"excel_data":excel_data})
 
 
@@ -141,17 +215,20 @@ def uploadFile(request):
 
 
 def downloadFile(request):
-  
-
     if request.method == 'POST':  
         # Define Django project base directory
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         # Define text file name
-        filename = request.POST.get("file_name")
+        x=dict(request.POST.items())
+        if 'SIQ' in request.POST :
+            filename="liste_siq.xlsx"
+        elif 'SIT' in request.POST  :
+            filename="liste_sit.xlsx"
+       
         # Define the full file path
-        filepath = BASE_DIR + '/myapp/static/upload/' + filename
+        filepath = BASE_DIR + '/app/static/upload/' + filename
         # Open the file for reading content
-        path = open(filepath, 'r')
+        path = open(filepath, 'r' ,encoding="cp437")
         # Set the mime type
         mime_type, _ = mimetypes.guess_type(filepath)
         # Set the return value of the HttpResponse
@@ -160,9 +237,8 @@ def downloadFile(request):
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         # Return the response value
         return response 
-         
+          
     else: 
-        return render(request, "downloadFile.html")
-    
+         return render(request,'de/recupererList.html', {})
 
 

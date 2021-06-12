@@ -1,3 +1,4 @@
+
 <!--
 =========================================================
 * Argon Dashboard - v1.2.0
@@ -8,7 +9,7 @@
 * Copyright  Creative Tim (http://www.creative-tim.com)
 * Coded by www.creative-tim.com
 
-
+“{% load static %}”
 
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -23,15 +24,15 @@
   <meta name="author" content="Creative Tim">
   <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
   <!-- Favicon -->
-  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
+  <link rel="icon" href="{% static 'assets/img/brand/favicon.png'  %}" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
-  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
   <!-- Page plugins -->
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
 </head>
 
 <body>
@@ -62,15 +63,21 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="affecterSalles.html">
+              <a class="nav-link active" href="affecterSalles.html">
                 <i class="ni ni-pin-3 text-primary"></i>
                 <span class="nav-link-text">Affectation des salles</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="AffectationSurvelliant.html">
+              <a class="nav-link" href="AffectationSurvelliant.html">
                 <i class="ni ni-single-02 text-yellow"></i>
-                <span class="nav-link-text">Affectation des surveillants</span>
+                <span class="nav-link-text">Affectation des Surveillants</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="examples/ReleverPresence.html">
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Relever les présences</span>
               </a>
             </li>
           </ul>
@@ -93,12 +100,13 @@
           <!-- Search form -->
    
             <div class="form-group mb-0">
-                    <h6 class="h2 text-white d-inline-block mb-0">Affectation des surveillants</h6>
-                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-2">
+              
+                    <h6 class="h2 text-white d-inline-block mb-0">Affectation des salles</h6>
+                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                       <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                       <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Affectation des Surveillants</li>
+                      <li class="breadcrumb-item active" aria-current="page">Affectation des salles</li>
                     </ol>
                   </nav>
               
@@ -136,7 +144,7 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                        <img alt="Image placeholder" src="../assets/img/theme/team-9.jpg" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
@@ -329,9 +337,18 @@
           <div class="row align-items-center py-4">
             
             <div class="col-lg-6 col-5 text-right">
+              {% if validated is None %}
               <h6 class="h2 text-white d-inline-block mb-0">Introduire le fichier</h6>
-              <input type="file" class="form-control" id="customFile" />
+              <form action="{% url 'affecterSalles' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                 <input type="file" name="excel_file" class="form-control" id="customFile" />
+                 <button type="submit" class="btn btn-secondary"> Soumettre </button>
+              </form>
+              {% endif%}
             </div>
+           
+
+        
             
           </div>
           <!-- Card stats -->
@@ -346,12 +363,15 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Répartition des surveillants par salle</h3>
+                  <h3 class="mb-0">Répartition des condidats par salle</h3>
                 </div>
                 <div class="col text-right">
-                    <button type="button" class="btn btn-primary">Valider</button>
-                  <button type="button" class="btn btn-secondary">Valider</button>
-                  <a href="#!" class="btn btn-sm btn-primary">Nombre Total 55</a>
+                  {% if excel_file %}
+                  <a href="{%  url 'validerSalles' %}">
+                    <button  type="button" class="btn btn-primary">Valider</button>
+                  </a>
+                  {% endif %}
+                  <a href="#!" class="btn btn-sm btn-primary">Nombre total des condidats :  {{ nb_total }}</a>
                 </div>
               </div>
             </div>
@@ -360,43 +380,26 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Nom & Prénom</th>
+                    <th scope="col">Matricule</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Date de naissance</th>
                     <th scope="col">salle</th>
+                    <th scope="col">numéro table</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for row in excel_data %}
                   <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
+                    {% for cell in row %}
+                    <td>
+                      {{ cell }}
+                    </td>  
+                    {% endfor %}
+                  
+                  {% endfor %}
                   </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">CHALAL RACHID</th>
-                    <td>S20</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
