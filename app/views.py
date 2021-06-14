@@ -106,6 +106,11 @@ def validerSalles(request):
     
     return render(request,'de/affecterSalles.html', {"validated":validated,"excel_data":excel_data,"nb_total":nb_total})
  
+def releverPresence(request):
+    if "GET" == request.method:
+        return render(request, 'de/ReleverPresence.html', {})
+    else :   
+        return render(request, 'de/ReleverPresence.html', {})
 
 """============================================================================="""
 

@@ -27,14 +27,23 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.index),
-    path('validerSalles/', views.validerSalles, name='validerSalles'),
+
+    #coté DE 
+
     path('recupererList/', views.recupererList),
+    
     path('affecterSalle/', views.affecterSalle,name='affecterSalles'),
+    path('validerSalles/', views.validerSalles, name='validerSalles'),
+    
     path('affecterSurveillant/', views.affecterSurveillant),
-    path('admin/', admin.site.urls),
+ 
+    path('releverPresence/', views.releverPresence, name='releverPresence'),
+
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
     path('downloadFile/', views.downloadFile, name='downloadFile'),
+    #coté DPGR
+    #coté Correcteur 
 
 ]
 """path('validerSalles/<str:excel_file>', views.validerSalles, name='validerSalles'),"""
