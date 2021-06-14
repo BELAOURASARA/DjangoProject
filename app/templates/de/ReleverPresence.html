@@ -346,191 +346,169 @@
     <div class="container-fluid mt--6">
       <div class="row">
         <div class="col-xl-12">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-            
-                  <h3 class="mb-0">Cocher les absents</h3>
+          <div class="nav-wrapper">
+            <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-bullet-list-67 mr-2"></i>Liste candidats SIT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bullet-list-67 mr-2"></i>Liste candidats SIQ</a>
+                </li>
+                
+            </ul>
+        </div>
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                      <div class="card">
+                        <div class="card-header border-0">
+                          <div class="row align-items-center">
+                            <div class="col">
+                        
+                              <h3 class="mb-0">Cocher les absents</h3>
+                            </div>
+                            <div class="col text-right">
+                                <button type="button" class="btn btn-primary">Valider</button>
+                              <button type="button" class="btn btn-secondary">Valider</button>
+                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total 4</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table-responsive">
+                          <!-- Projects table -->
+                          <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col">Matricule</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Date de naissance</th>
+                                <th scope="col">Salle</th>
+                                <th scope="col">Numéro table</th>
+                                <th scope="col">Absent</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">
+                                 17/0001
+                                </th>
+                                <td>
+                                  KHEDIM
+                                </td>
+                                <td>
+                                  IBTISSEM
+                                </td>
+                                <td>
+                                  10/11/1985
+                                </td>
+                                <td>CP1</td>
+                                <td>A6</td>
+                                <td><div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                  </div></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                 17/0001
+                                </th>
+                                <td>
+                                  KHEDIM
+                                </td>
+                                <td>
+                                  IBTISSEM
+                                </td>
+                                <td>
+                                  10/11/1985
+                                </td>
+                                <td>CP1</td>
+                                <td>A6</td>
+                                <td><div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                  </div></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>    
+                    </div>
+                    <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                      <div class="card">
+                        <div class="card-header border-0">
+                          <div class="row align-items-center">
+                            <div class="col">
+                        
+                              <h3 class="mb-0">Cocher les absents</h3>
+                            </div>
+                            <div class="col text-right">
+                                <button type="button" class="btn btn-primary">Valider</button>
+                              <button type="button" class="btn btn-secondary">Valider</button>
+                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total 3</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="table-responsive">
+                          <!-- Projects table -->
+                          <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col">Matricule</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Date de naissance</th>
+                                <th scope="col">Salle</th>
+                                <th scope="col">Numéro table</th>
+                                <th scope="col">Absent</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">
+                                 18/0001
+                                </th>
+                                <td>
+                                  Belaoura
+                                </td>
+                                <td>
+                                  Sara
+                                </td>
+                                <td>
+                                  01/01/1990
+                                </td>
+                                <td>Amphi 3</td>
+                                <td>F 23</td>
+                                <td><div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                  </div></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                 18/0001
+                                </th>
+                                <td>
+                                  Belaoura
+                                </td>
+                                <td>
+                                  Sara
+                                </td>
+                                <td>
+                                  01/01/1990
+                                </td>
+                                <td>Amphi 3</td>
+                                <td>F 23</td>
+                                <td><div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                  </div></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>    
+                    </div>
                 </div>
-                <div class="col text-right">
-                    <button type="button" class="btn btn-primary">Valider</button>
-                  <button type="button" class="btn btn-secondary">Valider</button>
-                  <a href="#!" class="btn btn-sm btn-primary">Nombre Total 55</a>
-                </div>
-              </div>
             </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Matricule</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Date de naissance</th>
-                    <th scope="col">Salle</th>
-                    <th scope="col">Numéro table</th>
-                    <th scope="col">Absent</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                     17/0001
-                    </th>
-                    <td>
-                      KHEDIM
-                    </td>
-                    <td>
-                      IBTISSEM
-                    </td>
-                    <td>
-                      10/11/1985
-                    </td>
-                    <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      17/0001
-                     </th>
-                     <td>
-                       KHEDIM
-                     </td>
-                     <td>
-                       IBTISSEM
-                     </td>
-                     <td>
-                       10/11/1985
-                     </td>
-                     <td>CP1</td>
-                    <td>A6</td>
-                    <td><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                      </div></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        </div>
         </div>
       </div>
       <!-- Footer -->
