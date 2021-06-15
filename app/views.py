@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Type
+from .models import Specialite
+from .models import Candidat
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
@@ -14,7 +16,7 @@ from django.contrib.auth import authenticate,login
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
-from .models import Copie
+#from .test1 import Copie
 
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
@@ -41,7 +43,32 @@ def ajouter_note(request):
     else:
         return render(request,'index.html',{})
         
+def create_specialite(request):
+        title=('SIT')
+        ep1=('ANAD')
+        ep2=('ARCHI')
+        ep3=('ARCHI')
+        sp=Specialite(titre=title,ep1=ep1,ep2=ep2,ep3=ep3)       
+        sp.save()
+        return render(request,'index.html',{})
 
+def create_candidat(request):
+        matricule=(2222)
+        nom=('kadri')
+        prenom=('djihen')
+        datenaiss=('12-10-1997')
+        salle=('S10')
+        numetable=('B10')
+        exclu=False
+        spec=('SIT')
+        
+        se=Specialite.objects.get(titre=spec)
+        seid=se.id
+        can=Candidat(matricule=matricule,nom=nom,prenom=prenom,dateNaiss=datenaiss,salle=salle,NumeroTable=numetable,exclu=exclu,specialite=se)       
+        can.save()
+        """return HttpResponse("%s"%seid)"""
+        return render(request,'index.html',{})
+        
 
 def correction(request):
     return render(request,'correcteur/correction.html')
