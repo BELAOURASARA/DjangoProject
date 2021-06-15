@@ -35,6 +35,8 @@ app_name = "app"
    
 #]
 urlpatterns = [
+    path('creer_can/', views.create_candidat, name='creer_can'),
+    path('creer_sp/', views.create_specialite, name='creer_sp'),
     path('corriger/', views.ajouter_note, name='corriger'),
     path('signup/', views.signup, name='signup'),
     path('correction/',views.correction,name="correction"),
