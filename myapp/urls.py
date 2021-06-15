@@ -25,15 +25,18 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
+    path('corriger/', views.ajouter_note, name='corriger'),
     path('signup/', views.signup, name='signup'),
-
+    path('correction/',views.correction,name="correction"),
    # path('login/', views.login_page, name='login_page'),
    # path('loginacc/', views.loginn, name='loginacc'),
    # path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.index),
     path('redirection/', views.redirection, name='redirection'),
+
     path('login/', views.user_login, name='login'),
     path('logout/', views.logout, name='logout'),
+
     path('accounts/', include('django.contrib.auth.urls')),
    
    

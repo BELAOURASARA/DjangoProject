@@ -221,7 +221,11 @@
                      1124568
                     </td>
                     <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
+                      <form role="form" method="POST" action="{% url 'corriger' %}">
+                        {% csrf_token %}
+                        <input type="text" class="form-control"  name="note">
+                        <button class="btn btn-primary" type="submit">Valider</button>
+                      </form>
                     </td>
                     <td>
                         <button class="btn btn-primary" type="button">Valider</button>
@@ -231,111 +235,7 @@
 
                     </td>
                   </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     1124568
-                    </td>
-                    <td class="budget">
-                        <input type="text" class="form-control" placeholder="Default input">
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>

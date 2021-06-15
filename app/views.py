@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate,login
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from .models import Copie
 
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
@@ -28,6 +29,22 @@ def logout(request) :
     return redirect('login')
 
 
+#def note_validee():
+def ajouter_note(request):
+    if request.method == 'POST': 
+        #print (request.POST.get('note')) 
+        note=request.POST.get('note')
+        co=Copie(code=258963,note=note,isvalidated=True,idcorrecteur=18,idepreuve=3,matricule=123654)
+        co.save()
+        return co
+        return render(request,'index.html',{})
+    else:
+        return render(request,'index.html',{})
+        
+
+
+def correction(request):
+    return render(request,'correcteur/correction.html')
 def redirection(request):
     idd=request.user.id
     u = User.objects.get(id=idd)
@@ -36,7 +53,7 @@ def redirection(request):
      return render(request,'index.html',{})
     else:
         if u1.Type==1:
-          return render(request,'app/home.html',{})#la page d'acceuil de la DE
+          return render(request,'index.html',{})#index
         else:
            return render(request,'correcteur/dashboard_correcteur.html',{})   
 

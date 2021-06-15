@@ -4,8 +4,57 @@ from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django import forms
 
-   
+
+
+class Epreuve(models.Model):
+    titre=models.CharField(max_length=100)  
+    coeff =models.IntegerField()   
 # creating a form 
+class Correcteur(models.Model):
+   user = models.OneToOneField(User, on_delete=models.CASCADE),    
+   idepreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+
+
+
+class Candidat(models.Model):
+    matricule=models.BigAutoField(primary_key=True)
+    nom=models.CharField(max_length=100)
+    prenom=models.CharField(max_length=100)
+    dateNaiss= models.CharField(max_length=100)
+    salle =  models.CharField(max_length=100)
+    NumeroTable =models.CharField(max_length=100)
+    exclu= models.BooleanField()
+    specialite= models.CharField(max_length=100)
+
+class Specialite(models.Model):
+    titre=models.CharField(max_length=100)
+    """ep1=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+    ep2=models.ForeignKey(Epreuve, on_delete=models.CASCADE) 
+    ep3=models.ForeignKey(Epreuve, on_delete=models.CASCADE)"""    
+
+class ListCandidats(models.Model):
+    nomFichier=models.CharField(max_length=100)
+    idSpecialite=models.ForeignKey(Specialite, on_delete=models.CASCADE)
+
+class CorrigesType(models.Model):
+    nomFichier=models.CharField(max_length=100)
+    idEpreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+
+
+class Copie(models.Model):
+    matricule=models.ForeignKey(Candidat, on_delete=models.CASCADE)
+    code=models.CharField(max_length=100)
+    note=models.IntegerField()
+    idepreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+    isvalidated=models.BooleanField()
+    """idcorrecteur1=models.ForeignKey(Correcteur,on_delete=models.CASCADE)
+    idcorrecteur2=models.ForeignKey(Correcteur,on_delete=models.CASCADE)
+    idcorrecteur3=models.ForeignKey(Correcteur,on_delete=models.CASCADE)"""
+    subi3eme=models.BooleanField()
+
+    
+
+      
 
 class Type(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE),
