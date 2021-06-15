@@ -18,35 +18,48 @@ from django.contrib import admin
 
 from django.urls import path,re_path
 from app import views
+from app import viewsDE
+from app import viewsDPGR
+from app import viewsCorrecteur
 from django.conf.urls import include
 app_name = "app"
+
 urlpatterns = [
-    path('',views.home_page,name="home_page"),
-    path('admin/', admin.site.urls),
     path('signup/', views.signup, name='signup'),
-    path('login/', views.user_login, name='login'),
-    path('accounts/', include('django.contrib.auth.urls')),
+
+   # path('login/', views.login_page, name='login_page'),
+   # path('loginacc/', views.loginn, name='loginacc'),
+   # path('accounts/', include('django.contrib.auth.urls')),
     path('index/', views.index),
-
-    #coté DE 
-
-    path('recupererList/', views.recupererList),
-    
-    path('affecterSalle/', views.affecterSalle,name='affecterSalles'),
-    path('validerSalles/', views.validerSalles, name='validerSalles'),
-    
-    path('affecterSurveillant/', views.affecterSurveillant),
- 
-    path('releverPresence/', views.releverPresence, name='releverPresence'),
-
+    path('redirection/', views.redirection, name='redirection'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('accounts/', include('django.contrib.auth.urls')),
+   
+   
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
     path('downloadFile/', views.downloadFile, name='downloadFile'),
+
+    #coté DE 
+    path('AccueilDE/', viewsDE.AccueilDE, name='AccueilDE'),
+    path('recupererList/', viewsDE.recupererList),
+    path('affecterSallesSIQ/', viewsDE.affecterSalleSIQ,name='affecterSallesSIQ'),
+    path('affecterSallesSIT/', viewsDE.affecterSalleSIT,name='affecterSallesSIT'),
+    path('validerSalles/', viewsDE.validerSalles, name='validerSalles'),
+    path('affecterSurveillant/', viewsDE.affecterSurveillant,name='affecterSurveillant'),
+    path('releverAbscence/', viewsDE.releverAbscence, name='releverAbscence'),
+    path('downloadListCan/', viewsDE.downloadListCan, name='downloadListCan'),
+
     #coté DPGR
+    path('AccueilDPGR/', viewsDPGR.AccueilDPGR, name='AccueilDPGR'),
+    
     #coté Correcteur 
+    path('AccueilCorrecteur/', viewsCorrecteur.AccueilCorrecteur, name='AccueilCorrecteur'),
 
 ]
 """path('validerSalles/<str:excel_file>', views.validerSalles, name='validerSalles'),"""
+
 
 
 

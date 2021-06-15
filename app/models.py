@@ -3,8 +3,13 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django import forms
+
    
 # creating a form 
+
+class Type(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE),
+    Type = models.IntegerField()
 class InputForm(forms.ModelForm):
     """
     A form that creates a user, with no privileges, from the given username and
@@ -32,12 +37,17 @@ class InputForm(forms.ModelForm):
                 code='password_mismatch',
             )
         return password2
+
+
     def save(self, commit=True):
         
         user = super(InputForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+  
         if commit:
             user.save()
+            t=Type(id=user.id,Type=2)
+            t.save()
         return user
     
 class UserLaureat(models.Model):
@@ -61,6 +71,8 @@ class SujetThese(models.Model):
 class Affect(models.Model):
     sujet = models.ForeignKey(SujetThese, on_delete=models.CASCADE)
     laureat =  models.ForeignKey(User, on_delete=models.CASCADE)
+
+
    
    
 

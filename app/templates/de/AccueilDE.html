@@ -9,18 +9,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Tableau de bord </title>
-  <!-- Favicon -->
-  <link rel="icon" href="{% static 'assets/img/brand/favicon.png'  %}" type="image/png">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
-  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
-  <!-- Page plugins -->
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
-     
+  <title>Accueil </title>
+
+   <!-- Favicon -->
+   <link rel="icon" href="{% static 'assets/img/brand/favicon.png'  %}" type="image/png">
+   <!-- Fonts -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+   <!-- Icons -->
+   <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+   <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
+   <!-- Page plugins -->
+   <!-- Argon CSS -->
+   <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
+      
+  
 </head>
 
 <body>
@@ -30,7 +32,7 @@
      
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          <img src="../assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+          <img src="../assets/img/brand/Image1.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -39,27 +41,21 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="Index_DPGR.html">
+              <a class="nav-link active" href="/AccueilDE">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Accueil</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  " href="dashboard_DPGR.html">
-                <i class="ni ni-planet text-orange"></i>
-                <span class="nav-link-text">Tableau de bord</span>
+              <a class="nav-link  " href="/releverAbscence">
+                <i class="ni ni-single-02 text-yellow"></i>
+                <span class="nav-link-text">Relever les absences</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="Mes documents_DPGR.html">
-                <i class="ni ni-bullet-list-67 text-default"></i>
-                <span class="nav-link-text">Mes Documents</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">
+              <a class="nav-link" href="/logout">
                 <i class="ni ni-key-25 text-info"></i>
-                <span class="nav-link-text">Déconnexion</span>
+                <span class="nav-link-text">Déconnecter</span>
               </a>
             </li>
           </ul>
@@ -122,13 +118,13 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">Chalal</h4>
+                            <h4 class="mb-0 text-sm">DPGR</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>2 hrs </small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">A déposé un sujet d'épreuve</p>
+                        <p class="text-sm mb-0">La liste des candidats SIT est déposé</p>
                       </div>
                     </div>
                   </a>
@@ -137,31 +133,17 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">Dahak</h4>
+                            <h4 class="mb-0 text-sm">DPGR</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>7 hrs </small>
                           </div>
                         </div>
-                        <p class="text-sm mb-0">A validé un sujet</p>
+                        <p class="text-sm mb-0">La liste des candidats SIQ est déposé</p>
                       </div>
                     </div>
                   </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-                            <h4 class="mb-0 text-sm">Amrouche</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                            <small>3 hrs </small>
-                          </div>
-                        </div>
-                        <p class="text-sm mb-0">A validé un sujet</p>
-                      </div>
-                    </div>
-                  </a>
+                 
                 </div>
                 <!-- View all -->
                 <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">voir tous</a>
@@ -173,7 +155,7 @@
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">Djamel </span>
+                    <span class="mb-0 text-sm  font-weight-bold">DE</span>
                   </div>
                 </div>
               </a>
@@ -199,62 +181,80 @@
 
       <div class="row">
         <div class="col-xl-12">
-          <div class="card">
-            <div class="card-header border-0">
-              <h3 class="mb-0">
-                Mes documents
-              </h3>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="name">Rang</th>
-                    <th scope="col" class="sort" data-sort="budget">Matricule</th>
-                    <th scope="col" class="sort" data-sort="status">Nom</th>
-                    <th scope="col" class="sort" data-sort="status">Prénom</th>
-                    <th scope="col" class="sort" data-sort="status">date de naissance</th>
-                    <th scope="col" class="sort" data-sort="status">Lieu de naissance</th>
-                    <th scope="col" class="sort" data-sort="status">Note Finale</th>
-                    <th scope="col" class="sort" data-sort="status">Résultat d'admission</th>
-                    
-                  </tr>
-                </thead>
-                <tbody class="list">
-                    <td class="budget">
-                     1
-                    </td>
-                    <td class="budget">
-                    12345678
-                    </td>
-                    <td class="budget">
-                      DAOUDI
-                     </td>
-                     <td class="budget">
-                     Khensa
-                     </td>
-                     <td class="budget">
-                     12/10/1999
-                     </td>
-                     <td class="budget">
-                     SIDI AISSA
-                     </td>
-                     <td class="budget">
-                      18
-                      </td>
-                      <td class="budget">
-                      Admis
-                        </td>
+          <div class="card text-center">
+            <div class="row">
+              
+              <div class="col-sm-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Récupérer la liste des candidants</h5>
+                    <form action="{% url 'downloadListCan' %}" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}  
+                    <button name="SIQ" type="submit" class="btn-icon-clipboard" data-clipboard-text="bold-down" title="Télécharger liste des candidats SIQ">
+                      <div>
+                        <i class="ni ni-bold-down"></i>
+                        <span>Liste Spécialité SIQ</span>
+                      </div>
+                    </button>
+                    <button name="SIT" type="submit" class="btn-icon-clipboard" data-clipboard-text="bold-down" title="Télécharger liste des candidats SIQ">
+                      <div>
+                        <i class="ni ni-bold-down"></i>
+                        <span>Liste Spécialité SIT</span>
+                      </div>
+                    </button>
+                  </form> 
+                  </div>
+                 
                   
-                  </tr>
-                  
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Affectation des salles</h5>
 
-                </tbody>
-              </table>
-            
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">Affectation des SIQ</label>
+                      <form action="{% url 'affecterSallesSIQ' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input name="SIQ" class="form-control" type="file" id="formFile" placeholder="Type to search...">
+                      <button type="submit" class="btn btn-outline-primary">Envoyer</button>
+                      </form>
+                    </div>
+                    <div class="mb-3">
+
+                      <label for="formFile" class="form-label">Affectation des SIT</label>
+                      <form action="{% url 'affecterSallesSIT' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input name="SIT" class="form-control" type="file" id="formFile" placeholder="Type to search...">
+                      <button type="submit" class="btn btn-outline-primary">Envoyer</button>
+                      </form>
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+              </div> 
+              <div class="col-sm-4">
+                <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Affectation des surveillants </h5>
+                
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">Importer l'affectation des seurveillants</label>
+                      <form action="{% url 'affecterSurveillant' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <input class="form-control" type="file" id="formFile" placeholder="Type to search...">
+                      <button name="Surveillant" type="button" class="btn btn-outline-primary">Envoyer</button>
+                      </form>
+                    </div>
+                  
+                </div>
+              </div>
+              </div>
+              
+
             </div>
-          
-           
             
           </div>
         </div>
@@ -274,26 +274,19 @@
     </div>
   </div>
   <!-- Argon Scripts -->
- <!-- Core -->
- <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
- <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
- <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
- <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
- <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
- <!-- Optional JS -->
- <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
- <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
- <!-- Argon JS -->
- <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
-
-
-
-
-
-
-
+  <!-- Core -->
+  <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
   <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
+  <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
+
+
 </body>
 
 </html>

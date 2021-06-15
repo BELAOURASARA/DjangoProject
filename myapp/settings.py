@@ -10,13 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
+
+from pathlib import Path,os
+
+
 from pathlib import Path
 import os
 
 
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = 'home_page'
+LOGIN_REDIRECT_URL = 'redirection'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,12 +38,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+
 # Templates Directory
 TEMPLATE_DIR = os.path.join(BASE_DIR,"app/templates")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "app/static"),
 ]
-
 
 
 # Templates Directory
@@ -148,6 +154,8 @@ STATIC_URL = '/app/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+AUTHENTICATION_BACKENDS = (
+    'app.authentication.EmailBackend',
+)
 
 
