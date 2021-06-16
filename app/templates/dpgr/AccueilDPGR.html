@@ -37,7 +37,7 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="Index_DPGR.html">
+              <a class="nav-link active" href="/AccueilDPGR">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Accueil</span>
               </a>
@@ -242,6 +242,7 @@
                             <div class="card-header border-0">
                               <h3 class="mb-0">Système informatique (SIQ)</h3>
                             </div>
+                            {% if canSiq is None %}
                             <div class="custom-file">
                               <form action="{% url 'ImporterCanSIQ' %}"  method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
@@ -249,11 +250,17 @@
                               <label class="custom-file-label" for="customFileLang">Select file</label>
                               <br>
                               <button class="btn btn-primary" type="submit">Confirmer</button> 
-                            </form>
-                           </div>
+                              </form>
+                            </div>
+                            {% else %}
+                            <a href="{% url 'downloadFile' filename=nomfSIQ %}">
+                              {{  nomfSIQ }}
+                            </a>
+                             {% endif %}
                            <div class="card-header border-0">
                             <h3 class="mb-0">Système d'information (SIT)</h3>
                           </div>
+                          {% if canSit is None %}
                           <div class="custom-file">
                             <form action="{% url 'ImporterCanSIT' %}"  method="post" enctype="multipart/form-data">
                               {% csrf_token %}
@@ -262,7 +269,12 @@
                             <br>
                             <button class="btn btn-primary" type="submit">Confirmer</button>
                             </form>
-                         </div>
+                          </div>
+                          {% else %}
+                             <a href="{% url 'downloadFile' filename=nomfSIT %}">
+                               {{  nomfSIT }}
+                             </a>
+                          {% endif %}
 
                           </div>
                         </div>
@@ -394,24 +406,31 @@
                     </div>
                       </div>
                       <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                        <form>
+
                           <h1>Importer les corrigés types</h1>
                           
                          
                         <div class="form-group mt-3">
-                          <label for="exampleFormControlSelect1">Sélectionner Epreuve</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Système d'information</option>
-                            <option>Base de données</option>
-                            <option>Réseau</option>
-                            
-                          </select>
-                          <div class="custom-file mt-3">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="en">
-                            <label class="custom-file-label" for="customFileLang">Select file</label>
+                          <form action="{% url 'ImporterCorriges' %}"  method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                              <label for="exampleFormControlSelect1">Sélectionner une épreuve</label>
+                              <select name="epreuve" class="form-control" id="exampleFormControlSelect1">
+                                <option>ANAD</option>
+                                <option>VCL</option>
+                                <option>BDM</option>
+                                <option>SIAD</option>
+                                <option>ASI</option>
+                                <option> </option>
+                                
+                              </select>
+                              <div class="custom-file mt-3">
+                                <input name="corrige" type="file" class="custom-file-input" id="customFileLang" lang="en">
+                                <label class="custom-file-label" for="customFileLang">Select file</label>
+                              </div>
+                              <button class="btn btn-primary" type="submit">Confirmer</button> 
+                        </form> 
                         </div>
-                        </div>
-                      </form>
+                     
                       </div>
                   </div>
               </div>

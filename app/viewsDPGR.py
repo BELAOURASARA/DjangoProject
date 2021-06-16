@@ -27,7 +27,18 @@ import openpyxl
 from .models import *
 
 def AccueilDPGR(request):
-    return render(request,'dpgr/AccueilDPGR.html', {})
+    siq=Specialite.objects.get(titre="SIQ")
+    canSiq=ListCandidats.objects.get(idSpecialite=siq)
+    sit=Specialite.objects.get(titre="SIQ")
+    canSit=ListCandidats.objects.get(idSpecialite=sit)
+    if canSiq:
+        nomfSIQ = getattr(canSiq, "nomFichier")
+    if canSit:    
+        nomfSIT = getattr(canSit, "nomFichier")
+
+    
+    return render(request,'dpgr/AccueilDPGR.html', {"canSiq":canSiq,"canSit":canSit,"nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT})
+
 
 def ImporterCanSIQ(request):
     if request.method =="POST" :
@@ -82,5 +93,17 @@ def ImporterCanSIT(request):
         
         return redirect('AccueilDPGR')   
     else :
-        return redirect('AccueilDPGR')    
-           
+        return redirect('AccueilDPGR') 
+
+def ImporterCorriges(request):           
+    if request.method =="POST" :
+        epreuve=request.POST.get("epreuve")
+        excel_file = request.FILES["corrige"]
+        #entrer le nom du fichier dans la base
+        corr=CorrigesType(nomFichier=excel_file,Epreuve=epreuve)
+        corr.save()
+        #upload file
+        handle_uploaded_file(excel_file)   
+        return redirect('AccueilDPGR')   
+    else :
+        return redirect('AccueilDPGR')        

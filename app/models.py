@@ -49,7 +49,7 @@ class ListCandidats(models.Model):
 
 class CorrigesType(models.Model):
     nomFichier=models.CharField(max_length=100)
-    idEpreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+    Epreuve=models.CharField(max_length=100)
 
 
  

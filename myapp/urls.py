@@ -44,7 +44,8 @@ urlpatterns = [
    
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
-    path('downloadFile/', views.downloadFile, name='downloadFile'),
+    # path('downloadFile/', views.downloadFile, name='downloadFile'),
+    path('downloadFile/<str:filename>', views.downloadFile, name='downloadFile'),
 
     #coté DE 
     path('AccueilDE/', viewsDE.AccueilDE, name='AccueilDE'),
@@ -60,12 +61,13 @@ urlpatterns = [
     path('AccueilDPGR/', viewsDPGR.AccueilDPGR, name='AccueilDPGR'),
     path('ImporterCanSIQ/', viewsDPGR.ImporterCanSIQ, name='ImporterCanSIQ'),
     path('ImporterCanSIT/', viewsDPGR.ImporterCanSIT, name='ImporterCanSIT'),
+    path('ImporterCorriges/', viewsDPGR.ImporterCorriges, name='ImporterCorriges'),
     
     #coté Correcteur 
     path('AccueilCorrecteur/', viewsCorrecteur.AccueilCorrecteur, name='AccueilCorrecteur'),
 
 ]
-"""path('validerSalles/<str:excel_file>', views.validerSalles, name='validerSalles'),"""
+"""path('validerSalles/<str:filename>', views.validerSalles, name='validerSalles'),"""
 
 
 
