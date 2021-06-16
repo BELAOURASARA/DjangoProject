@@ -22,7 +22,20 @@ from django.http import HttpResponse
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
 import openpyxl
+import random
+def random_number(request):
+    r=random.randint(122222,1256666)
+    return HttpResponse("%s"%r)
+"""def generer_code(request):
+    candidat = candidat.objects.all()
+    for candidat in candidats:
+        for p in candidat.matricule.all():
+            print "p.id"
+            print p.id
+ 
+            assurance = Assurance.objects.all().filter(nom_id=p.id)
 
+    r=random.randint(122222,1256666)    """
 def index(request) :
     return render(request,'index.html', {})
 
@@ -44,10 +57,10 @@ def ajouter_note(request):
         return render(request,'index.html',{})
         
 def create_specialite(request):
-        title=('SIT')
-        ep1=('ANAD')
-        ep2=('ARCHI')
-        ep3=('ARCHI')
+        title=('SIQ')
+        ep1=('SYS')
+        ep2=('RES')
+        ep3=('OPTIM')
         sp=Specialite(titre=title,ep1=ep1,ep2=ep2,ep3=ep3)       
         sp.save()
         return render(request,'index.html',{})

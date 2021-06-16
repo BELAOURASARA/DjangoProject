@@ -25,6 +25,7 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
+    path('random/', views.random_number, name='random'),
     path('creer_can/', views.create_candidat, name='creer_can'),
     path('creer_sp/', views.create_specialite, name='creer_sp'),
     path('corriger/', views.ajouter_note, name='corriger'),
