@@ -24,7 +24,86 @@ from django.http import HttpResponse
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
 import openpyxl
-
+from .models import *
 
 def AccueilDPGR(request):
-    return render(request,'dpgr/AccueilDPGR.html', {})
+    siq=Specialite.objects.get(titre="SIQ")
+    canSiq=ListCandidats.objects.get(idSpecialite=siq)
+    sit=Specialite.objects.get(titre="SIQ")
+    canSit=ListCandidats.objects.get(idSpecialite=sit)
+    if canSiq:
+        nomfSIQ = getattr(canSiq, "nomFichier")
+    if canSit:    
+        nomfSIT = getattr(canSit, "nomFichier")
+
+    
+    return render(request,'dpgr/AccueilDPGR.html', {"canSiq":canSiq,"canSit":canSit,"nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT})
+
+
+def ImporterCanSIQ(request):
+    if request.method =="POST" :
+        excel_file = request.FILES["SIQ"]
+        
+        #entrer le nom du fichier dans la base
+        siq=Specialite.objects.get(titre="SIQ")
+        listeCan=ListCandidats(nomFichier=excel_file,idSpecialite=siq)
+        listeCan.save()
+        #upload file
+        handle_uploaded_file(excel_file)  
+        #extract information from file
+        wb = openpyxl.load_workbook(excel_file)
+        worksheet = wb["Feuil1"]
+        excel_data = list()
+        
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+        for i in range(len(excel_data)):
+            can=Candidat(matricule=int(excel_data[i][0]),nom=excel_data[i][1],prenom=excel_data[i][2],dateNaiss=excel_data[i][3],salle=None,NumeroTable=None,exclu=False,specialite=siq)       
+            can.save()
+        
+        return redirect('AccueilDPGR')   
+    else :
+        return redirect('AccueilDPGR')    
+        
+def ImporterCanSIT(request):
+    if request.method =="POST" :
+        excel_file = request.FILES["SIT"]
+        #entrer le nom du fichier dans la base
+        sit=Specialite.objects.get(titre="SIT")
+        listeCan=ListCandidats(nomFichier=excel_file,idSpecialite=sit)
+        listeCan.save()
+        #upload file
+        handle_uploaded_file(excel_file)  
+        #extract information from file
+        wb = openpyxl.load_workbook(excel_file)
+        worksheet = wb["Feuil1"]
+        excel_data = list()
+        
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+        for i in range(len(excel_data)):
+            can=Candidat(matricule=int(excel_data[i][0]),nom=excel_data[i][1],prenom=excel_data[i][2],dateNaiss=excel_data[i][3],salle=None,NumeroTable=None,exclu=False,specialite=sit)       
+            can.save()
+        
+        return redirect('AccueilDPGR')   
+    else :
+        return redirect('AccueilDPGR') 
+
+def ImporterCorriges(request):           
+    if request.method =="POST" :
+        epreuve=request.POST.get("epreuve")
+        excel_file = request.FILES["corrige"]
+        #entrer le nom du fichier dans la base
+        corr=CorrigesType(nomFichier=excel_file,Epreuve=epreuve)
+        corr.save()
+        #upload file
+        handle_uploaded_file(excel_file)   
+        return redirect('AccueilDPGR')   
+    else :
+        return redirect('AccueilDPGR')        

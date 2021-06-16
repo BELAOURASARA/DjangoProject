@@ -210,32 +210,24 @@ def uploadFile(request):
         return render(request,"uploadFile.html")
 
 
-def downloadFile(request):
-    if request.method == 'POST':  
-        # Define Django project base directory
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # Define text file name
-        x=dict(request.POST.items())
-        if 'SIQ' in request.POST :
-            filename="liste_siq.xlsx"
-        elif 'SIT' in request.POST  :
-            filename="liste_sit.xlsx"
-       
-        # Define the full file path
-        filepath = BASE_DIR + '/app/static/upload/' + filename
-        # Open the file for reading content
-        path = open(filepath, 'r' ,encoding="cp437")
-        # Set the mime type
-        mime_type, _ = mimetypes.guess_type(filepath)
-        # Set the return value of the HttpResponse
-        response = HttpResponse(path, content_type=mime_type)
-        # Set the HTTP header for sending to browser
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
-        # Return the response value
-        return response 
-          
-    else: 
-         return render(request,'de/recupererList.html', {})
+def downloadFile(request,filename):
+
+    # Define Django project base directory
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Define text file name
+    # Define the full file path
+    filepath = BASE_DIR + '/app/static/upload/' + filename
+    # Open the file for reading content
+    path = open(filepath, 'r' ,encoding="cp437")
+    # Set the mime type
+    mime_type, _ = mimetypes.guess_type(filepath)
+    # Set the return value of the HttpResponse
+    response = HttpResponse(path, content_type=mime_type)
+    # Set the HTTP header for sending to browser
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    # Return the response value
+    return response 
+
 
 
 

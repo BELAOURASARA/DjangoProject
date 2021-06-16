@@ -26,10 +26,11 @@ class Candidat(models.Model):
     nom=models.CharField(max_length=100)
     prenom=models.CharField(max_length=100)
     dateNaiss= models.CharField(max_length=100)
-    salle =  models.CharField(max_length=100)
-    NumeroTable =models.CharField(max_length=100)
-    exclu= models.BooleanField()
+    salle =  models.CharField(max_length=100 ,null=True)
+    NumeroTable =models.CharField(max_length=100,null=True)
+    exclu= models.BooleanField(null=True)
     specialite=models.ForeignKey(Specialite,on_delete=models.CASCADE)
+
 class Copie(models.Model):
     matricule=models.ForeignKey(Candidat, on_delete=models.CASCADE)
     code=models.CharField(max_length=100)
@@ -48,7 +49,7 @@ class ListCandidats(models.Model):
 
 class CorrigesType(models.Model):
     nomFichier=models.CharField(max_length=100)
-    idEpreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+    Epreuve=models.CharField(max_length=100)
 
 
  
