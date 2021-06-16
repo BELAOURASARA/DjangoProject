@@ -286,124 +286,61 @@
 
                       </div>
                       <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                        <form>
+                         {% if not correcteurs  %}
                           <h1>Importer la liste des enseignants</h1>
                           <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFileLang" lang="en">
-                              <label class="custom-file-label" for="customFileLang">Select file</label>
+                            <form action="{% url 'ImporterEns' %}"  method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <input name="filename" type="file" class="custom-file-input" id="customFileLang" lang="en">
+                              <label  class="custom-file-label" for="customFileLang">Select file</label>
+                              <br> <br>
+                              <button class="btn btn-primary" type="submit">Valider</button>
+                            </form>
                           </div>
-                          
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">Sélectionner l'Epreuve</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Système d'information</option>
-                            <option>Base de données</option>
-                            <option>Réseau</option>
-                            
-                          </select>
-                        </div>
-                      </form>
+                       {% else %}
+                
+                      
+                    
+              
+                      
+              
                       <div class="row">
                         <div class="col-xl-12">
                           <div class="card">
                             <div class="card-header border-0">
-                              <h3 class="mb-0">Sélectionner ceux qui sont des correcteurs</h3>
+                              <h3 class="mb-0">Correcteurs Créés</h3>
                             </div>
                             <div class="table-responsive">
                               <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                   <tr>
-                                    <th scope="col" class="sort" data-sort="name">Nom</th>
-                                    <th scope="col" class="sort" data-sort="budget">Prénom</th>   
-                                      <th scope="col" class="sort" data-sort="budget">Epreuve</th>
-                                    <th scope="col" class="sort" data-sort="status">Correcteur</th>
-                                  
-                                  
+                                    <th scope="col" class="sort" data-sort="name">Nom </th>  
+                                    <th scope="col" class="sort" data-sort="name">Prénom</th> 
+                                    <th scope="col" class="sort" data-sort="name">Email</th>   
+                                    <th scope="col" class="sort" data-sort="budget">Epreuve</th>
+                                   
                                   </tr>
                                 </thead>
-                                <tbody
-                                >
-                                <tr>
-                                  <td class="budget">
-                                   CHALAL
-                                  </td>
-                                  <td class="budget">
-                                   Rachid 
-                                  </td>
-                                  <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                   </td>
+                                <tbody >
+                                  {% for row in data %}
                                    
-                                   <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                    </td>
-                                 
-                                </tr>
-                                <tr>
-                                  <td class="budget">
-                                   CHALAL
-                                  </td>
-                                  <td class="budget">
-                                   Rachid 
-                                  </td>
-                                  <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                   </td>
+                                  <tr>{% for cell in row %}
                                    
-                                   <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                    </td>
-                                 
-                                </tr>
-                                <tr>
-                                  <td class="budget">
-                                   CHALAL
-                                  </td>
-                                  <td class="budget">
-                                   Rachid 
-                                  </td>
-                                  <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                   </td>
-                                   
-                                   <td class="budget">
-                                    <div class="custom-control custom-checkbox">
-                                      <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                      <label class="custom-control-label" for="customCheck1"></label>
-                                    </div>
-                                    </td>
-                                 
-                                </tr>
-                                
+                                    <td class="budget"> {{ cell }} </td>
+                                        {% endfor %}   
+                                  </tr>
+                                  {% endfor %}
                               </tbody>
-                                </table>
-                                </div>
-
+                            </table>
+                            </div>
                           </div>
                         </div>
+                        
                       </div>
-
-                    <div class="row">
-                      <div class="col-lg-9">
-                      <button class="btn btn-primary" type="button">Créer compte</button></div>
-                      <div class="col-lg-2">
-                      <button class="btn btn-primary" type="button">Notifier</button></div>
-                    </div>
+                      
+                  
+               
+             {% endif %}
                       </div>
                       <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
 
