@@ -20,7 +20,8 @@ class Epreuve(models.Model):
 # creating a form 
 class Correcteur(models.Model):
    user = models.OneToOneField(User, on_delete=models.CASCADE),    
-   idepreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
+   epreuve=models.CharField(max_length=100,null=True)
+   
 class Candidat(models.Model):
     matricule=models.BigAutoField(primary_key=True)
     nom=models.CharField(max_length=100)

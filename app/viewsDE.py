@@ -24,6 +24,7 @@ from django.http import HttpResponse
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
 import openpyxl
+from .models import *
 
 
 def AccueilDE(request):
@@ -36,44 +37,42 @@ def recupererList(request) :
 def affecterSalleSIQ(request) :   
     if "GET" == request.method:
         return redirect('AccueilDE')  
-    else:
-       
+    else:   
         file = request.FILES["SIQ"]
         wb = openpyxl.load_workbook(file)
         # getting a particular sheet by name out of many sheets
-        worksheet = wb["Sheet1"]
+        worksheet = wb["Feuil1"]
         excel_data = list()
-        nb_total=0
         for row in worksheet.iter_rows():
             row_data = list()
             for cell in row:
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
-            nb_total=nb_total+1
-        
-        request.session['excel'] = excel_data
-        return render(request, "de/AccueilDE", {"file_salle":file})
+        siq=Specialite.objects.get(titre="SIQ")    
+        for i in range(len(excel_data)):
+            Candidat.objects.filter(matricule=int(excel_data[i][0]),nom=excel_data[i][1],prenom=excel_data[i][2],dateNaiss=excel_data[i][3],specialite=siq).update(salle=excel_data[i][4],NumeroTable=excel_data[i][5])
+    
+        return redirect('AccueilDE')
 
 def affecterSalleSIT(request) :   
     if "GET" == request.method:
         return redirect('AccueilDE')  
     else:
-       
         file = request.FILES["SIT"]
         wb = openpyxl.load_workbook(file)
         # getting a particular sheet by name out of many sheets
-        worksheet = wb["Sheet1"]
+        worksheet = wb["Feuil1"]
         excel_data = list()
-        nb_total=0
         for row in worksheet.iter_rows():
             row_data = list()
             for cell in row:
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
-            nb_total=nb_total+1
-        
-        request.session['excel'] = excel_data
-        return render(request, "de/AccueilDE", {"file_salle":file})
+        sit=Specialite.objects.get(titre="SIT")    
+        for i in range(len(excel_data)):
+            Candidat.objects.filter(matricule=int(excel_data[i][0]),nom=excel_data[i][1],prenom=excel_data[i][2],dateNaiss=excel_data[i][3],specialite=sit).update(salle=excel_data[i][4],NumeroTable=excel_data[i][5])
+
+        return redirect('AccueilDE')
 
 def affecterSurveillant(request) :   
     if "GET" == request.method:
@@ -120,27 +119,37 @@ def downloadListCan(request):
         # Define Django project base directory
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         # Define text file name
-        x=dict(request.POST.items())
         if 'SIQ' in request.POST :
-            filename="liste_siq.xlsx"
+            siq=Specialite.objects.get(titre="SIQ")
+            try:
+                canSiq=ListCandidats.objects.get(idSpecialite=siq)
+                filename = getattr(canSiq, "nomFichier") 
+            except ListCandidats.DoesNotExist:
+                filename = None       
+           
         elif 'SIT' in request.POST  :
-            filename="liste_sit.xlsx"
-       
-        # Define the full file path
-        filepath = BASE_DIR + '/app/static/upload/' + filename
-        # Open the file for reading content
-        path = open(filepath, 'r' ,encoding="cp437")
-        # Set the mime type
-        mime_type, _ = mimetypes.guess_type(filepath)
-        # Set the return value of the HttpResponse
-        response = HttpResponse(path, content_type=mime_type)
-        # Set the HTTP header for sending to browser
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
-        # Return the response value
-        return response 
-          
-    else: 
-         return render(request,'de/AccueilDE.html', {})
+            sit=Specialite.objects.get(titre="SIT")
+            try:
+                canSit=ListCandidats.objects.get(idSpecialite=sit)
+                filename = getattr(canSit, "nomFichier") 
+            except ListCandidats.DoesNotExist:
+                filename = None  
+        if filename is None :
+            return redirect('AccueilDE')
+        else :    
+            # Define the full file path
+            filepath = BASE_DIR + '/app/static/upload/' + filename
+            # Open the file for reading content
+            path = open(filepath, 'r' ,encoding="cp437")
+            # Set the mime type
+            mime_type, _ = mimetypes.guess_type(filepath)
+            # Set the return value of the HttpResponse
+            response = HttpResponse(path, content_type=mime_type)
+            # Set the HTTP header for sending to browser
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            # Return the response value
+            return response 
+   
 
 
 

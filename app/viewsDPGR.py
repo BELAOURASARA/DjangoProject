@@ -27,17 +27,45 @@ import openpyxl
 from .models import *
 
 def AccueilDPGR(request):
-    siq=Specialite.objects.get(titre="SIQ")
-    canSiq=ListCandidats.objects.get(idSpecialite=siq)
-    sit=Specialite.objects.get(titre="SIQ")
-    canSit=ListCandidats.objects.get(idSpecialite=sit)
-    if canSiq:
-        nomfSIQ = getattr(canSiq, "nomFichier")
-    if canSit:    
+    try:
+        siq=Specialite.objects.get(titre="SIQ")
+        canSiq=ListCandidats.objects.get(idSpecialite=siq)
+        nomfSIQ = getattr(canSiq, "nomFichier")   
+      
+    except ListCandidats.DoesNotExist:
+        canSiq=None
+        nomfSIQ = None 
+
+    try:
+        sit=Specialite.objects.get(titre="SIT")
+        canSit=ListCandidats.objects.get(idSpecialite=sit)
         nomfSIT = getattr(canSit, "nomFichier")
 
+    except ListCandidats.DoesNotExist:
+        canSit=None
+        nomfSIT = None        
+
+    try:
+        correcteurs=Correcteur.objects.all()
+        
+        data=list()
+        for i in range(len(correcteurs)):
+            row_data = list()
+            id=correcteurs[i].id
+            user=User.objects.get(id=id)
+            row_data.append(str(getattr(user, "first_name")))
+            row_data.append(str(getattr(user, "last_name")))
+            row_data.append(str(getattr(user, "email")))
+            row_data.append(str(getattr(correcteurs[i], "epreuve")))
+            data.append(row_data)
+            
+        
+    except  Correcteur.DoesNotExist:
+        correcteurs=None
     
-    return render(request,'dpgr/AccueilDPGR.html', {"canSiq":canSiq,"canSit":canSit,"nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT})
+    #return HttpResponse(data)
+    return render(request,'dpgr/AccueilDPGR.html', 
+    {"canSiq":canSiq,"canSit":canSit,"nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT,"correcteurs":correcteurs,"data":data})
 
 
 def ImporterCanSIQ(request):
@@ -106,4 +134,30 @@ def ImporterCorriges(request):
         handle_uploaded_file(excel_file)   
         return redirect('AccueilDPGR')   
     else :
-        return redirect('AccueilDPGR')        
+        return redirect('AccueilDPGR')  
+
+def ImporterEns(request):
+    if request.method =="POST" :
+        excel_file = request.FILES["filename"]
+        wb = openpyxl.load_workbook(excel_file)
+        worksheet = wb["Feuil1"]
+        excel_data = list()
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+        for i in range(len(excel_data)):
+            concat=excel_data[i][0]+excel_data[i][1]
+            corr=User(first_name=excel_data[i][0],last_name=excel_data[i][1],email=excel_data[i][2],username=concat)       
+            corr.set_password(concat)
+            corr.save()
+            correcteur=Correcteur(id=corr.id,epreuve=excel_data[i][3])
+            correcteur.save()
+            t=Type(id=corr.id,Type=2)
+            t.save()
+        return redirect('AccueilDPGR')  
+    else :
+        return redirect('AccueilDPGR')         
+ 
+   
