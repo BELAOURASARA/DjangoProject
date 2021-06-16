@@ -243,15 +243,25 @@
                               <h3 class="mb-0">Système informatique (SIQ)</h3>
                             </div>
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                              <form action="{% url 'ImporterCanSIQ' %}"  method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                              <input name="SIQ" type="file" class="custom-file-input" id="customFileLang" lang="en">
                               <label class="custom-file-label" for="customFileLang">Select file</label>
+                              <br>
+                              <button class="btn btn-primary" type="submit">Confirmer</button> 
+                            </form>
                            </div>
                            <div class="card-header border-0">
                             <h3 class="mb-0">Système d'information (SIT)</h3>
                           </div>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                            <form action="{% url 'ImporterCanSIT' %}"  method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                            <input name="SIT" type="file" class="custom-file-input" id="customFileLang" lang="en">
                             <label class="custom-file-label" for="customFileLang">Select file</label>
+                            <br>
+                            <button class="btn btn-primary" type="submit">Confirmer</button>
+                            </form>
                          </div>
 
                           </div>
@@ -259,7 +269,7 @@
                       </div>
 
 
-                      <button class="btn btn-primary" type="button">Confirmer</button>
+                     
 
 
                       </div>

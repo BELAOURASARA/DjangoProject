@@ -58,6 +58,8 @@ urlpatterns = [
 
     #coté DPGR
     path('AccueilDPGR/', viewsDPGR.AccueilDPGR, name='AccueilDPGR'),
+    path('ImporterCanSIQ/', viewsDPGR.ImporterCanSIQ, name='ImporterCanSIQ'),
+    path('ImporterCanSIT/', viewsDPGR.ImporterCanSIT, name='ImporterCanSIT'),
     
     #coté Correcteur 
     path('AccueilCorrecteur/', viewsCorrecteur.AccueilCorrecteur, name='AccueilCorrecteur'),
