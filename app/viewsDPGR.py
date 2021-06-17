@@ -158,6 +158,13 @@ def ImporterEns(request):
             t.save()
         return redirect('AccueilDPGR')  
     else :
-        return redirect('AccueilDPGR')         
+        return redirect('AccueilDPGR')   
+
+def dashboard_DPGR(request):
+    return render(request,'dpgr/dashboard_dpgr.html',{})
+
+def Mesdocuments_DPGR(request):
+    return render(request,'dpgr/Mesdocuments_DPGR.html',{})
+
  
    
