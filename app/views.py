@@ -4,7 +4,9 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Type
 from .models import Specialite
+from .models import Copie
 from .models import Candidat
+from .models import Epreuve
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
@@ -26,20 +28,100 @@ import random
 def random_number(request):
     r=random.randint(122222,1256666)
     return HttpResponse("%s"%r)
-"""def generer_code(request):
-    candidat = candidat.objects.all()
-    for candidat in candidats:
-        for p in candidat.matricule.all():
-            print "p.id"
-            print p.id
- 
-            assurance = Assurance.objects.all().filter(nom_id=p.id)
+    
+def generer_code(request):
+    #r1=request.POST.get('valeur1')
+    #r2=request.POST.get('valeur2')
+    r1=int(request.POST.get('valeur1'))
+    r2=int(request.POST.get('valeur2'))
+    exist=False
+    v1=0
+    v2=0
+    v3=0
+    candidats=Candidat.objects.filter(exclu=False)
 
-    r=random.randint(122222,1256666)    """
+    for candidat in candidats:
+           
+            matricule=candidat
+            
+            n=Copie.objects.all()
+            spec=candidat.specialite
+            s=Specialite.objects.get(titre=spec.titre)
+            if not n:
+               
+              
+                ep1=s.ep1
+                e=Epreuve.objects.get(titre=ep1)
+                v1=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v1,idepreuve=e)
+                n1.save()
+                
+                  
+                
+               
+                ep2=s.ep2
+                e=Epreuve.objects.get(titre=ep2)
+                v2=random.randint(r1,r2)
+                while (v2 == v1):
+                    v2=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v2,idepreuve=e)
+                n1.save()
+               
+                ep3=s.ep3
+                e=Epreuve.objects.get(titre=ep3)
+                v3=random.randint(r1,r2)
+                while (v3 == v1) or (v3 == v1):
+                    v3=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v3,idepreuve=e)
+                n1.save()
+            else:
+                
+                   
+                   
+                    
+                    
+                ep1=s.ep1
+                e=Epreuve.objects.get(titre=ep1)
+                v1=random.randint(r1,r2)
+                for co in n:
+                    while (v1 == co.code):
+                        v1=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v1,idepreuve=e)
+                n1.save()
+                
+                
+                
+                
+                ep2=s.ep2
+                e=Epreuve.objects.get(titre=ep2)
+                v2=random.randint(r1,r2)
+                for co in n:
+                    while (v2 == co.code) or (v2 == v1):
+                        v2=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v2,idepreuve=e)
+                n1.save()
+                
+                
+                
+                ep3=s.ep3
+                e=Epreuve.objects.get(titre=ep3)
+                v3=random.randint(r1,r2)
+                for co in n:
+                    while (v3 == co.code) or (v3 == v1) or (v3 == v2):
+                        v3=random.randint(r1,r2)
+                n1=Copie(matricule=candidat,code=v3,idepreuve=e)
+                n1.save()
+                
+    return HttpResponse("%s"%'kkkk')      
+            
+            
+           
+
 def index(request) :
     return render(request,'index.html', {})
 
-
+def coder(request) :
+    return render(request,'generation_code.html', {})
 def logout(request) :
     return redirect('login')
 
@@ -82,7 +164,13 @@ def create_candidat(request):
         """return HttpResponse("%s"%seid)"""
         return render(request,'index.html',{})
         
-
+def create_epreuve(request):    
+        titree=('ASI')
+        coefff=(3)
+        ep=Epreuve(titre=titree,coeff=coefff)
+        ep.save()
+        return HttpResponse("%s"%titree)
+        #return render(request,'index.html',{})
 def correction(request):
     return render(request,'correcteur/correction.html')
 def redirection(request):

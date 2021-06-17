@@ -25,9 +25,10 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
-    path('random/', views.random_number, name='random'),
-    path('creer_can/', views.create_candidat, name='creer_can'),
-    path('creer_sp/', views.create_specialite, name='creer_sp'),
+    #path('create_epreuve/', views.create_epreuve, name='create_epreuve'),
+    path('coder/', views.coder, name='coder'),
+    path('generer_code/', views.generer_code, name='generer_code'),
+    #path('creer_sp/', views.create_specialite, name='creer_sp'),
     path('corriger/', views.ajouter_note, name='corriger'),
     path('signup/', views.signup, name='signup'),
     path('correction/',views.correction,name="correction"),
