@@ -28,3 +28,9 @@ import openpyxl
 
 def AccueilCorrecteur(request):
     return render(request,'correcteur/AccueilCorrecteur.html', {})
+
+def Correction(request):
+    return render(request,'correcteur/correction.html', {})
+
+def dashboard_correcteur(request):
+    return render(request,'correcteur/dashboard_correcteur.html', {})

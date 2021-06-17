@@ -51,10 +51,10 @@ urlpatterns = [
 
     #coté DE 
     path('AccueilDE/', viewsDE.AccueilDE, name='AccueilDE'),
-    path('recupererList/', viewsDE.recupererList),
+    
     path('affecterSallesSIQ/', viewsDE.affecterSalleSIQ,name='affecterSallesSIQ'),
     path('affecterSallesSIT/', viewsDE.affecterSalleSIT,name='affecterSallesSIT'),
-    path('validerSalles/', viewsDE.validerSalles, name='validerSalles'),
+   
     path('affecterSurveillant/', viewsDE.affecterSurveillant,name='affecterSurveillant'),
     path('releverAbscence/', viewsDE.releverAbscence, name='releverAbscence'),
     path('downloadListCan/', viewsDE.downloadListCan, name='downloadListCan'),
@@ -65,10 +65,14 @@ urlpatterns = [
     path('ImporterCanSIT/', viewsDPGR.ImporterCanSIT, name='ImporterCanSIT'),
     path('ImporterCorriges/', viewsDPGR.ImporterCorriges, name='ImporterCorriges'),
     path('ImporterEns/', viewsDPGR.ImporterEns, name='ImporterEns'),
+    path('dashboard_DPGR/', viewsDPGR.dashboard_DPGR, name='dashboard_DPGR'),
+    path('Mesdocuments_DPGR/', viewsDPGR.Mesdocuments_DPGR, name='Mesdocuments_DPGR'),
     
     
     #coté Correcteur 
     path('AccueilCorrecteur/', viewsCorrecteur.AccueilCorrecteur, name='AccueilCorrecteur'),
+    path('Correction/', viewsCorrecteur.Correction, name='Correction'),
+    path('dashboard_correcteur/', viewsCorrecteur.dashboard_correcteur, name='dashboard_correcteur')
 
 ]
 """path('validerSalles/<str:filename>', views.validerSalles, name='validerSalles'),"""

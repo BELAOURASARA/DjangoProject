@@ -28,17 +28,59 @@ from .models import *
 
 
 def AccueilDE(request):
-    return render(request,'de/AccueilDE.html', {})
+    try:
+        s=Fichiers.objects.get(type="salle_siq")
+        sallesiq=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        sallesiq=None
+
+    try:
+        s=Fichiers.objects.get(type="salle_sit")
+        sallesit=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        sallesit=None    
+    
+    try:
+        s=Fichiers.objects.get(type="surv")
+        surv=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        surv=None
+
+    try:
+        siq=Specialite.objects.get(titre="SIQ")
+        canSiq=ListCandidats.objects.get(idSpecialite=siq)
+        nomfSIQ = getattr(canSiq, "nomFichier")   
+      
+    except ListCandidats.DoesNotExist:
+        canSiq=None
+        nomfSIQ = None 
+
+    try:
+        sit=Specialite.objects.get(titre="SIT")
+        canSit=ListCandidats.objects.get(idSpecialite=sit)
+        nomfSIT = getattr(canSit, "nomFichier")
+
+    except ListCandidats.DoesNotExist:
+        canSit=None
+        nomfSIT = None        
+      
+
+    return render(request,'de/AccueilDE.html', 
+    {"sallesiq":sallesiq,"sallesit":sallesit,"surv":surv,
+    "nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT})
 
 
-def recupererList(request) :
-    return render(request,'de/recupererList.html', {})
 
 def affecterSalleSIQ(request) :   
     if "GET" == request.method:
         return redirect('AccueilDE')  
     else:   
         file = request.FILES["SIQ"]
+        f=Fichiers(filename=file,type="salle_siq")
+        f.save()
         wb = openpyxl.load_workbook(file)
         # getting a particular sheet by name out of many sheets
         worksheet = wb["Feuil1"]
@@ -59,6 +101,8 @@ def affecterSalleSIT(request) :
         return redirect('AccueilDE')  
     else:
         file = request.FILES["SIT"]
+        f=Fichiers(filename=file,type="salle_sit")
+        f.save()
         wb = openpyxl.load_workbook(file)
         # getting a particular sheet by name out of many sheets
         worksheet = wb["Feuil1"]
@@ -81,8 +125,10 @@ def affecterSurveillant(request) :
        
         file = request.FILES["Surveillant"]
         wb = openpyxl.load_workbook(file)
+        f=Fichiers(filename=file,type="surv")
+        f.save()
         # getting a particular sheet by name out of many sheets
-        worksheet = wb["Sheet1"]
+        worksheet = wb["Feuil1"]
         excel_data = list()
         nb_total=0
         for row in worksheet.iter_rows():
@@ -97,21 +143,32 @@ def affecterSurveillant(request) :
 
 
 
-def validerSalles(request):
-    validated=True
-    excel_data=request.session['excel']
-    nb_total=0
-    for row in excel_data :
-        nb_total=nb_total+1 
-        """ each row is a row in the database"""
-    
-    return render(request,'de/affecterSalles.html', {"validated":validated,"excel_data":excel_data,"nb_total":nb_total})
- 
 def releverAbscence(request):
     if "GET" == request.method:
-        return render(request, 'de/ReleverAbscence.html', {})
-    else :   
-        return render(request, 'de/ReleverAbscence.html', {})
+        
+        data_siq=list()
+        data_sit=list()
+        siq=Specialite.objects.get(titre="SIQ")
+        nbsiq=0
+        nbsit=0
+        try :
+            cansiq=Candidat.objects.filter(specialite=siq,exclu=False)
+            nbsiq=cansiq.count()
+        except Candidat.DoesNotExist:
+            cansiq=None
+        sit=Specialite.objects.get(titre="SIT")
+        try :
+            cansit=Candidat.objects.filter(specialite=sit,exclu=False)
+            nbsit=cansit.count()
+        except Candidat.DoesNotExist:
+            cansit=None
+        
+       
+        return render(request, 'de/ReleverAbscence.html', {"data_siq":cansiq,"data_sit":cansit,"nbsiq":nbsiq,"nbsit":nbsit})
+    else :  
+        selected_values = request.POST.getlist('absent') 
+        Candidat.objects.filter(matricule__in=selected_values).update(exclu=True)
+        return redirect('releverAbscence')
 
 
 def downloadListCan(request):
