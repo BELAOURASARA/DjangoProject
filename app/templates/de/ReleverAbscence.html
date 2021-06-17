@@ -214,6 +214,8 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                       <div class="card">
+                        <form action="{% url 'releverAbscence' %}"  method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
                         <div class="card-header border-0">
                           <div class="row align-items-center">
                             <div class="col">
@@ -221,9 +223,9 @@
                               <h3 class="mb-0">Cocher les absents</h3>
                             </div>
                             <div class="col text-right">
-                                <button type="button" class="btn btn-primary">Valider</button>
-                              <button type="button" class="btn btn-secondary">Valider</button>
-                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total 4</a>
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                            
+                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total {{nbsit}}</a>
                             </div>
                           </div>
                         </div>
@@ -235,58 +237,49 @@
                                 <th scope="col">Matricule</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Prénom</th>
-                                <th scope="col">Date de naissance</th>
+
                                 <th scope="col">Salle</th>
                                 <th scope="col">Numéro table</th>
                                 <th scope="col">Absent</th>
                               </tr>
                             </thead>
                             <tbody>
+                              {% for cell in data_sit %}
                               <tr>
                                 <th scope="row">
-                                 17/0001
-                                </th>
+                                  {{cell.matricule}}
+                                 </th>
+                                 <th scope="row">
+                                   {{cell.nom}}
+                                 </th>
+                                 <th scope="row">
+                                   {{cell.prenom}}
+                                  </th>
+                                  <th scope="row">
+                                   {{cell.salle}}
+                                  </th>
+                                  <th scope="row">
+                                   {{cell.NumeroTable}}
+                                  </th>
+                                  
                                 <td>
-                                  KHEDIM
+                                  <div class="form-check">
+                                    <input name="absent" class="form-check-input" type="checkbox" value="{{cell.matricule}}" id="defaultCheck1">
+                                  </div>
                                 </td>
-                                <td>
-                                  IBTISSEM
-                                </td>
-                                <td>
-                                  10/11/1985
-                                </td>
-                                <td>CP1</td>
-                                <td>A6</td>
-                                <td><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                  </div></td>
                               </tr>
-                              <tr>
-                                <th scope="row">
-                                 17/0001
-                                </th>
-                                <td>
-                                  KHEDIM
-                                </td>
-                                <td>
-                                  IBTISSEM
-                                </td>
-                                <td>
-                                  10/11/1985
-                                </td>
-                                <td>CP1</td>
-                                <td>A6</td>
-                                <td><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                  </div></td>
-                              </tr>
+                              {% endfor%}
+                                                       
                             </tbody>
                           </table>
                         </div>
+                        </form>
                       </div>    
                     </div>
                     <div class="tab-pane fade show active" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                       <div class="card">
+                        <form action="{% url 'releverAbscence' %}"  method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
                         <div class="card-header border-0">
                           <div class="row align-items-center">
                             <div class="col">
@@ -294,9 +287,9 @@
                               <h3 class="mb-0">Cocher les absents</h3>
                             </div>
                             <div class="col text-right">
-                                <button type="button" class="btn btn-primary">Valider</button>
-                              <button type="button" class="btn btn-secondary">Valider</button>
-                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total 3</a>
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                              
+                              <a href="#!" class="btn btn-sm btn-primary">Nombre Total {{ nbsiq }}</a>
                             </div>
                           </div>
                         </div>
@@ -314,48 +307,39 @@
                               </tr>
                             </thead>
                             <tbody>
+                              
+                              {% for cell in data_siq %}
                               <tr>
+                               
+                                <th scope="row">
+                                 {{cell.matricule}}
+                                </th>
+                                <th scope="row">
+                                  {{cell.nom}}
+                                </th>
+                                <th scope="row">
+                                  {{cell.prenom}}
+                                 </th>
+                                 <th scope="row">
+                                  {{cell.salle}}
+                                 </th>
+                                 <th scope="row">
+                                  {{cell.NumeroTable}}
+                                 </th>
                                 
-                                <th scope="row">
-                                 18/0001
-                                </th>
+                                  
                                 <td>
-                                  Belaoura
+                                  <div class="form-check">
+                                    
+                                    <input name="absent" class="form-check-input" type="checkbox" value="{{cell.matricule}}" id="defaultCheck1">
+                                  </div>
                                 </td>
-                                <td>
-                                  Sara
-                                </td>
-                                <td>
-                                  01/01/1990
-                                </td>
-                                <td>Amphi 3</td>
-                                <td>F 23</td>
-                                <td><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                  </div></td>
                               </tr>
-                              <tr>
-                                <th scope="row">
-                                 18/0001
-                                </th>
-                                <td>
-                                  Belaoura
-                                </td>
-                                <td>
-                                  Sara
-                                </td>
-                                <td>
-                                  01/01/1990
-                                </td>
-                                <td>Amphi 3</td>
-                                <td>F 23</td>
-                                <td><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                  </div></td>
-                              </tr>
+                              {% endfor%}
                             </tbody>
                           </table>
                         </div>
+                      </form>
                       </div>    
                     </div>
                 </div>

@@ -49,10 +49,10 @@ urlpatterns = [
 
     #coté DE 
     path('AccueilDE/', viewsDE.AccueilDE, name='AccueilDE'),
-    path('recupererList/', viewsDE.recupererList),
+    
     path('affecterSallesSIQ/', viewsDE.affecterSalleSIQ,name='affecterSallesSIQ'),
     path('affecterSallesSIT/', viewsDE.affecterSalleSIT,name='affecterSallesSIT'),
-    path('validerSalles/', viewsDE.validerSalles, name='validerSalles'),
+   
     path('affecterSurveillant/', viewsDE.affecterSurveillant,name='affecterSurveillant'),
     path('releverAbscence/', viewsDE.releverAbscence, name='releverAbscence'),
     path('downloadListCan/', viewsDE.downloadListCan, name='downloadListCan'),

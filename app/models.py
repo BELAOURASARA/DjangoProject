@@ -51,7 +51,10 @@ class ListCandidats(models.Model):
 class CorrigesType(models.Model):
     nomFichier=models.CharField(max_length=100)
     Epreuve=models.CharField(max_length=100)
-
+   
+class Fichiers(models.Model):
+    filename = models.CharField(max_length=100)
+    type =  models.CharField(max_length=100)
 
  
 
@@ -119,6 +122,8 @@ class SujetThese(models.Model):
 class Affect(models.Model):
     sujet = models.ForeignKey(SujetThese, on_delete=models.CASCADE)
     laureat =  models.ForeignKey(User, on_delete=models.CASCADE)
+
+ 
 
 
    

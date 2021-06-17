@@ -190,18 +190,26 @@
                     <h5 class="card-title">Récupérer la liste des candidants</h5>
                     <form action="{% url 'downloadListCan' %}" method="post" enctype="multipart/form-data">
                       {% csrf_token %}  
-                    <button name="SIQ" type="submit" class="btn-icon-clipboard" data-clipboard-text="bold-down" title="Télécharger liste des candidats SIQ">
-                      <div>
-                        <i class="ni ni-bold-down"></i>
-                        <span>Liste Spécialité SIQ</span>
-                      </div>
-                    </button>
+                      {% if nomfSIQ %}
+                      <button name="SIQ" type="submit" class="btn-icon-clipboard" data-clipboard-text="bold-down" title="Télécharger liste des candidats SIQ">
+                        <div>
+                          <i class="ni ni-bold-down"></i>
+                          <span>Liste Spécialité SIQ</span>
+                        </div>
+                      </button>
+                      {% else %}
+                      <p> La liste de la spécialité SIQ n'est pas encore disponible</p>
+                      {% endif %}
+                      {% if nomfSIT %}
                     <button name="SIT" type="submit" class="btn-icon-clipboard" data-clipboard-text="bold-down" title="Télécharger liste des candidats SIQ">
                       <div>
                         <i class="ni ni-bold-down"></i>
                         <span>Liste Spécialité SIT</span>
                       </div>
                     </button>
+                    {% else %}
+                    <p> La liste de la spécialité SIT n'est pas encore disponible</p>
+                    {% endif %}
                   </form> 
                   </div>
                  
@@ -215,20 +223,28 @@
 
                     <div class="mb-3">
                       <label for="formFile" class="form-label">Affectation des SIQ</label>
+                      {% if sallesiq is None %}
                       <form action="{% url 'affecterSallesSIQ' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input name="SIQ" class="form-control" type="file" id="formFile" placeholder="Type to search...">
                       <button type="submit" class="btn btn-outline-primary">Envoyer</button>
                       </form>
+                      {% else%}
+                        <p> déjà déposée</p>
+                      {% endif%}
                     </div>
                     <div class="mb-3">
 
                       <label for="formFile" class="form-label">Affectation des SIT</label>
+                      {% if sallesit is None %}
                       <form action="{% url 'affecterSallesSIT' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input name="SIT" class="form-control" type="file" id="formFile" placeholder="Type to search...">
                       <button type="submit" class="btn btn-outline-primary">Envoyer</button>
                       </form>
+                      {% else%}
+                        <p> déjà déposée</p>
+                      {% endif%}
                     </div>
                     
                     
@@ -241,12 +257,16 @@
                   <h5 class="card-title">Affectation des surveillants </h5>
                 
                     <div class="mb-3">
+                      {% if surv is None %}
                       <label for="formFile" class="form-label">Importer l'affectation des seurveillants</label>
                       <form action="{% url 'affecterSurveillant' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                      <input class="form-control" type="file" id="formFile" placeholder="Type to search...">
-                      <button name="Surveillant" type="button" class="btn btn-outline-primary">Envoyer</button>
+                      <input  name="Surveillant" class="form-control" type="file" id="formFile" placeholder="Type to search...">
+                      <button type="submit" class="btn btn-outline-primary">Envoyer</button>
                       </form>
+                      {% else %}
+                      <p> déjà déposée </p>
+                      {% endif %}
                     </div>
                   
                 </div>
