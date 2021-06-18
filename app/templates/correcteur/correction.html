@@ -23,6 +23,7 @@
       
 </head>
 
+
 <body>
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
@@ -39,25 +40,25 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="/AccueilCorrecteur">
+              <a class="nav-link " href="planning.html">
                 <i class="ni ni-tv-2 text-primary"></i>
-                <span class="nav-link-text">Accueil</span>
+                <span class="nav-link-text">Mon Planning</span>
               </a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="/correction">
+              <a class="nav-link" href="correction.html">
                 <i class="ni ni-planet text-orange"></i>
                 <span class="nav-link-text">Correction</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/dashboard_correcteur">
+              <a class="nav-link" href="dashboard_correcteur.html">
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Tableau de bord</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/logout">
+              <a class="nav-link" href="../login.html">
                 <i class="ni ni-key-25 text-info"></i>
                 <span class="nav-link-text">Déconnexion</span>
               </a>
@@ -206,34 +207,47 @@
               </h3>
             </div>
             <div class="table-responsive">
-              <table class="table align-items-center table-flush">
+              <table class="table align-items-center table-flush"id="table">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col" class="sort" data-sort="name">Code</th>
                     <th scope="col" class="sort" data-sort="status">Note</th>
-                    <th scope="col" class="sort" data-sort="status">Vlider</th>
-                    <th scope="col" class="sort" data-sort="status">Modifier</th>   
+                    <th scope="col" class="sort" data-sort="status">Opération</th>
+                     
                   </tr>
                 </thead>
                 <tbody class="list"> 
+                  <!--section normale-->
                   <tr>
                     <td class="budget">
-                     1124568
+                      <form role="form" method="POST" action="{% url 'corriger' %}" >
+                        {% csrf_token %}
+                        <input type="text" class="form-control" placeholder="Code" name="code">
+                      
                     </td>
                     <td class="budget">
-                      <form role="form" method="POST" action="{% url 'corriger' %}">
-                        {% csrf_token %}
-                        <input type="text" class="form-control"  name="note">
+                    
+                        <input type="text" class="form-control" placeholder="../20" name="note">
+                     
+                    </td>
+                    <td>
                         <button class="btn btn-primary" type="submit">Valider</button>
-                      </form>
+                    </td>
+                   
+                  </tr>
+                </form>
+                  <!--section une fois est valider-->
+                  <tr>
+                    <td class="budget">
+                      12222333
+                    </td>
+                    <td class="budget">
+                      12
                     </td>
                     <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
+                        <button class="btn btn-primary" type="button" onclick="doTheInsert()">Ajouter nouvelle note</button>
                     </td>
-                    <td>
-                        <button class="btn btn-primary" type="button">Modifier</button>
-
-                    </td>
+                   
                   </tr>
                   
                 </tbody>
@@ -258,17 +272,24 @@
   
   </div>
   <!-- Argon Scripts -->
- <!-- Core -->
- <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
- <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
- <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
- <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
- <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
- <!-- Optional JS -->
- <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
- <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
- <!-- Argon JS -->
- <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
+  <!-- Core -->
+  <script>
+    function doTheInsert() {
+  var newRow=document.getElementById('table').insertRow();
+  
+  newRow.innerHTML = '<td class="budget"><form role="form"><input type="text" class="form-control" placeholder="Code"></form></td><td class="budget"> <form role="form"><input type="text" class="form-control" placeholder="../20" </form></td> <td> <button class="btn btn-primary" type="button">Valider</button></td>';
+}
+  </script>
+  <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
+  <!-- Argon JS -->
+  <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
 </body>
 
 </html>

@@ -40,9 +40,11 @@ class Copie(models.Model):
     idepreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
     #isvalidated=models.BooleanField()
     subi3eme=models.BooleanField(null=True)
-class table_inter(models.Model):
+class table_inter_correction(models.Model):
     id_correcteur=models.ForeignKey(Correcteur, on_delete=models.CASCADE)
-    id_copie=models.ForeignKey(Copie, on_delete=models.CASCADE)    
+    id_copie=models.ForeignKey(Copie, on_delete=models.CASCADE)  
+    phase=models.CharField(max_length=100)
+    note=models.IntegerField(null=True)
     
 
 class ListCandidats(models.Model):
@@ -101,7 +103,13 @@ class InputForm(forms.ModelForm):
             t=Type(id=user.id,Type=2)
             t.save()
         return user
-    
+class Resultat_module(models.Model):
+    matricule=models.ForeignKey(Candidat, on_delete=models.CASCADE)
+    ep=models.CharField(max_length=100)
+    moy_note=models.IntegerField()  
+class Resultat(models.Model):
+    matricule=models.ForeignKey(Candidat,on_delete=models.CASCADE)
+    resul=models.IntegerField()     
 class UserLaureat(models.Model):
         # This field is required.
         user = models.OneToOneField(User,on_delete=models.CASCADE)

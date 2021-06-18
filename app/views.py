@@ -7,6 +7,9 @@ from .models import Specialite
 from .models import Copie
 from .models import Candidat
 from .models import Epreuve
+from .models import Correcteur
+from .models import Resultat_module
+from .models import table_inter_correction
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
 from .forms import StudentForm   
@@ -19,6 +22,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 #from .test1 import Copie
+from django.db.models import Q
 
 from django.http import HttpResponse  
 from app.functions.functions import handle_uploaded_file  
@@ -130,14 +134,75 @@ def logout(request) :
 def ajouter_note(request):
     if request.method == 'POST': 
         #print (request.POST.get('note')) 
-        note=request.POST.get('note')
-        co=Copie(code=258963,note=note,isvalidated=True,idcorrecteur=18,idepreuve=3,matricule=123654)
-        co.save()
-        return co
-        return render(request,'index.html',{})
-    else:
-        return render(request,'index.html',{})
+        note=int(request.POST.get('note'))
+        #return HttpResponse("%s"%note)
+        code=int(request.POST.get('code'))
+        #return HttpResponse("%s"%code)
         
+        
+      
+        cop=Copie.objects.get(code=code)
+        cop.note=note
+        #idd=cop.id
+        #co=Copie(code=258963,note=note,isvalidated=True,idcorrecteur=18,idepreuve=3,matricule=123654)
+        cop.save()
+        idc=cop.id
+        id_corr=request.user.id
+        corr=Correcteur.objects.get(id=id_corr)
+        table=table_inter_correction.objects.all()
+        if not  table:
+            re1=table_inter_correction(phase='phase1',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
+            re1.save()  
+        else:   
+            try:
+                s=table_inter_correction.objects.get(id_copie_id=cop.id)
+                re2=table_inter_correction(phase='phase2',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
+                re2.save()       
+            except table_inter_correction.DoesNotExist :
+                re1=table_inter_correction(phase='phase1',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
+                re1.save()       
+           
+       
+            
+    else:
+        return render(request,'correcteur/correction.html',{})
+    return render(request,'correcteur/correction.html',{})        
+def calculer_resul_module(request):
+    candidats=Candidat.objects.filter(exclu=False)
+        #candidat=Candidat.objects.get(matricule=170020)
+    for candidat in candidats:    
+        spec=candidat.specialite
+        s=Specialite.objects.get(titre=spec.titre) 
+        ep1=s.ep1
+        idep1=Epreuve.objects.get(titre=ep1)
+        coeff1=idep1.coeff
+        codecopie1=Copie.objects.get(matricule=candidat,idepreuve=idep1)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase2")
+        moy=(((note1.note) + (note2.note))/2)
+        r=Resultat_module(matricule=candidat,ep=ep1,moy_note=moy)
+        r.save()
+        ep2=s.ep2 
+        idep2=Epreuve.objects.get(titre=ep2)
+        coeff1=idep1.coeff
+        codecopie2=Copie.objects.get(matricule=candidat,idepreuve=idep2)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase2")
+        moy2=(((note1.note) + (note1.note))/2)
+        r=Resultat_module(matricule=candidat,ep=ep2,moy_note=moy2)
+        r.save()
+        ep3=s.ep3
+        idep3=Epreuve.objects.get(titre=ep3)
+        coeff1=idep1.coeff
+        codecopie3=Copie.objects.get(matricule=candidat,idepreuve=idep3)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase2")
+        moy3=(((note1.note)+ (note2.note))/2)
+        r=Resultat_module(matricule=candidat,ep=ep3,moy_note=moy3)
+        r.save()
+    return HttpResponse("%s"%'kkkk')    
+
+
 def create_specialite(request):
         title=('SIQ')
         ep1=('SYS')
@@ -183,7 +248,8 @@ def redirection(request):
         if u1.Type==1:
           return render(request,'index.html',{})#index
         else:
-           return render(request,'correcteur/dashboard_correcteur.html',{})   
+            if u1.Type==2: 
+                return render(request,'correcteur/correction.html',{})   
 
 def home_page(request):
     return render(request,'app/home.html',{})

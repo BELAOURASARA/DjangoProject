@@ -25,20 +25,22 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
+    path('calculer_resul_module/', views.calculer_resul_module, name='calculer_resul_module'),
     #path('create_epreuve/', views.create_epreuve, name='create_epreuve'),
     path('coder/', views.coder, name='coder'),
     path('generer_code/', views.generer_code, name='generer_code'),
     #path('creer_sp/', views.create_specialite, name='creer_sp'),
     path('corriger/', views.ajouter_note, name='corriger'),
+
     path('signup/', views.signup, name='signup'),
     path('correction/',views.correction,name="correction"),
    # path('login/', views.login_page, name='login_page'),
    # path('loginacc/', views.loginn, name='loginacc'),
    # path('accounts/', include('django.contrib.auth.urls')),
-    path('index/', views.index),
+    path('', views.index),
     path('redirection/', views.redirection, name='redirection'),
 
-    path('login/', views.user_login, name='login'),
+    #path('login/', views.user_login, name='login'),
     path('logout/', views.logout, name='logout'),
 
     path('accounts/', include('django.contrib.auth.urls')),
