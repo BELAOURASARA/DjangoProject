@@ -240,7 +240,8 @@ def create_epreuve(request):
         return HttpResponse("%s"%titree)
         #return render(request,'index.html',{})
 def correction(request):
-    return render(request,'correcteur/correction.html')
+    return render(request,'correcteur/correction.html',{})
+
 def redirection(request):
     idd=request.user.id
     u = User.objects.get(id=idd)
