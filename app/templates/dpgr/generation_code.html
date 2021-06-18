@@ -1,6 +1,3 @@
-<!--
-“{% load static %}”
--->
 <!DOCTYPE html>
 <html>
 
@@ -9,19 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Mes Documents </title>
+  <title>Génération de code </title>
   <!-- Favicon -->
-   <!-- Favicon -->
-   <link rel="icon" href="{% static 'assets/img/brand/favicon.png'  %}" type="image/png">
-   <!-- Fonts -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-   <!-- Icons -->
-   <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
-   <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
-   <!-- Page plugins -->
-   <!-- Argon CSS -->
-   <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
-      
+  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
 </head>
 
 <body>
@@ -46,7 +41,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="/generer_code">
+              <a class="nav-link active" href="generation_code.html">
                 <i class="ni ni-badge text-success"></i>
                 <span class="nav-link-text">Anonymat</span>
               </a>
@@ -57,7 +52,7 @@
                 <span class="nav-link-text">Tableau de bord</span>
               </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="/Mesdocuments_DPGR">
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Mes Documents</span>
@@ -76,8 +71,8 @@
       </div>
     </div>
   </nav>
-   <!-- Main content -->
-   <div class="main-content" id="panel">
+  <!-- Main content -->
+  <div class="main-content" id="panel">
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
@@ -203,180 +198,137 @@
         </div>
       </div>
     </nav>
-
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card">
-            <div class="card-header border-0">
-              <h3 class="mb-0">
-             Mes répertoires
-              </h3>
-            </div>
-            <div class="row">
-                <div  class="col-6 ml-2"> 
-                  <div class="card" >
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <h3 class="mb-0">
+           Génération code Anonymat 
+            </h3>
+          </div>
+          <div class="row">
+              <div  class="col-12 ml-2"> 
+                <div class="card" >
                
-                  <div class="card-body">
-                    <h5 class="card-title">Corrigés Types</h5>
-                    <div class="table-responsive">
-                          <table class="table align-items-center">
-                              <thead class="thead-dark">
-                                  <tr>
-                                      <th scope="col" class="sort" data-sort="name">Titre</th>
-                                      <th scope="col" class="sort" data-sort="budget">Télécharger</th>
-                                      
-                                  </tr>
-                              </thead>
-                              <tbody  class="list">
-                                {% if corr == None%}
-                                {% else %}
-                                {% for cor in corr %}
-                                <tr>
-                                  <td>
-                                  Corrigé Type de : {{cor.Epreuve}} 
-                                  </td>
-                                  <td>
-                                   
-                                  <a href="{% url 'downloadFile' filename=cor.nomFichier %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-                                  </td>
-                                </tr>
-                                {% endfor %}
-                                {% endif %}
-                              </tbody>
-                              </table>
-                            
+                 <div class="card-body">
+                  <h4 class="card-title">Choisir le format du code </h4>
+                  <form role="form" >
+                    <div class="row">
+                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur min">
+                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur max">
+                    <button class="btn btn-outline-default col-3 ml-2" type="button">Générer</button>
+                  </form> 
+                </div>
+                <!-- section Liste des présents -->
+                <h4 class="card-title mt-3">Liste des présents </h4>
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                      <thead class="thead-dark">
+                          <tr>
+                              <th scope="col" class="sort" data-sort="name">Matricule</th>
+                              <th scope="col" class="sort" data-sort="budget">Nom</th>
+                              <th scope="col" class="sort" data-sort="budget">Prénom</th>
                               
-                              
-                            </div>
+                          </tr>
+                      </thead>
+                      <tbody  class="list">
+                        <tr>
+                          <td>
+                           12224
+                          </td>
+                          <td>
+   DAOUDI
+   
+                          </td>
+                          <td>
+                            KHENSA
+                          </td>
+                        
+                        </tr>
+                      
+                        
+                      </tbody>
+                      </table>
                     
-                  </div>
-                </div>
-              </div>
-            <div class="col-5 ml-2">
-              <div class="card" >
-               
-                <div class="card-body">
-                  <h5 class="card-title">Les listes</h5>
-                  <div class="table-responsive">
-                        <table class="table align-items-center">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col" class="sort" data-sort="name">Titre</th>
-                                    <th scope="col" class="sort" data-sort="budget">Télécharger</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody  class="list">
-                              {% if nomfSIQ == None %}
-                              {% else %}
-                              <tr>
-                                <td>
-                                 Liste des Candidats SIT
-                                </td>
-                                <td>
-                                  <a href="{% url 'downloadFile' filename=nomfSIT %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-
-                                </td>
-                              </tr>
-                              {% endif %}
-                              {% if nomfSIQ == None %}
-                              {% else %}
-                              <tr>
-                                <td>
-                                 Liste des Candidats SIQ
-                                </td>
-                                <td>
-                                  <a href="{% url 'downloadFile' filename=nomfSIQ %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-                                </td>
-                              </tr>
-                              {% endif %}
+                      
+                      
+                    </div>
+   <!--Section anonymat -->
+   <h4 class="card-title mt-3">Tableau de Correspondance </h4>
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                      <thead class="thead-dark">
+                          <tr>
+                              <th scope="col" class="sort" data-sort="name">Matricule</th>
+                              <th scope="col" class="sort" data-sort="budget">Code copie 1</th>
+                              <th scope="col" class="sort" data-sort="budget">Code copie 2</th>
+                              <th scope="col" class="sort" data-sort="budget">Code copie 3</th>
                               
-                              {% if sallesit == None %}
-                              {% else %}
-                              <tr>
-                                <td>
-                                Affectation des salles pour les SIT
-                                </td>
-                                <td>
-                                  <a href="{% url 'downloadFile' filename=sallesit %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-
-                                </td>
-                              </tr>
-                              {% endif %}
-                              {% if sallesiq == None %}
-                              {% else %}
-                              <tr>
-                                <td>
-                                Affectation des salles pour les SIQ
-                                </td>
-                                <td>
-                                  <a href="{% url 'downloadFile' filename=sallesiq %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-
-                                </td>
-                              </tr>
-                              {% endif%}
-                              {% if surv == None %}
-                              {% else %}
-                              <tr>
-                                <td>
-                                 Liste des surveillants
-                                </td>
-                                <td>
-
-                                  <a href="{% url 'downloadFile' filename=surv %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
-
-                                </td>
-                              </tr>
-                              {% endif %}
-                             
-                            </tbody>
-                            </table>
-                          
-                            
-                            
-                          </div>
-                  
-                </div>
+                          </tr>
+                      </thead>
+                      <tbody  class="list">
+                        <tr>
+                          <td>
+                           12224
+                          </td>
+                          <td>
+                            20000
+   
+                          </td>
+                          <td>
+                          20001
+                          </td>
+                          <td>
+                            2044445
+                            </td>
+                        
+                        </tr>
+                      
+                        
+                      </tbody>
+                      </table>
+                    
+                      
+                      
+                    </div>
               </div>
-            
-            </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-          
-      </div>
-    
-      <!-- Footer -->
-      <footer class="footer pt-0">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-6">
-            <div class="copyright text-center  text-lg-left  text-muted">
-              &copy; 2021 <a href="https://www.ESI.dz" class="font-weight-bold ml-1" target="_blank">ESI</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-  <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
-  <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
-  <!-- Optional JS -->
-  <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
-  <!-- Argon JS -->
-  <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
-</body>
+            </div>         
+         </div>
+         <!--Section Tableau présence-->
+         
+      
+        
 
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    
+
+     
+            
+           
+           
+            
+          
+
+ 
+
+
+
+
+
+
+
+  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
+</body>
 </html>
