@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -7,16 +8,17 @@
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
   <title>Correction</title>
-  <link rel="icon" href="{% static 'assets/img/brand/favicon.png'  %}" type="image/png">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
-  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
-  <!-- Page plugins -->
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
+   <!-- Favicon -->
+   <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png">
+   <!-- Fonts -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+   <!-- Icons -->
+   <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+   <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
+   <!-- Argon CSS -->
+   <link rel="stylesheet" href="{% static 'assets/css/argon.css?v=1.2.0' %}" type="text/css">
 </head>
+
 
 <body>
   <!-- Sidenav -->
@@ -214,17 +216,30 @@
                   <!--section normale-->
                   <tr>
                     <td class="budget">
-                      <form role="form">
-                        <input type="text" class="form-control" placeholder="Code">
-                      </form>
+
+                      <form role="form" method="POST" action="{% url 'corriger' %}" >
+                        {% csrf_token %}
+                        <input type="text" class="form-control" placeholder="Code" name="code">
+                      
                     </td>
                     <td class="budget">
-                      <form role="form">
-                        <input type="text" class="form-control" placeholder="../20">
-                      </form>
+                    
+                        <input type="text" class="form-control" placeholder="../20" name="note">
+                     
                     </td>
                     <td>
-                        <button class="btn btn-primary" type="button">Valider</button>
+                        <button class="btn btn-primary" type="submit">Valider</button>
+                    </td>
+                   
+                  </tr>
+                </form>
+                  <!--section une fois est valider-->
+                  <tr>
+                    <td class="budget">
+                      12222333
+                    </td>
+                    <td class="budget">
+                      12
                     </td>
                    
                   </tr>
