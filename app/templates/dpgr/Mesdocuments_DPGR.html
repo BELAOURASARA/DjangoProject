@@ -46,6 +46,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link " href="/generer_code">
+                <i class="ni ni-badge text-success"></i>
+                <span class="nav-link-text">Anonymat</span>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/dashboard_DPGR">
                 <i class="ni ni-planet text-orange"></i>
                 <span class="nav-link-text">Tableau de bord</span>
@@ -70,8 +76,8 @@
       </div>
     </div>
   </nav>
-  <!-- Main content -->
-  <div class="main-content" id="panel">
+   <!-- Main content -->
+   <div class="main-content" id="panel">
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
@@ -203,77 +209,150 @@
           <div class="card">
             <div class="card-header border-0">
               <h3 class="mb-0">
-                Mes documents
+             Mes répertoires
               </h3>
             </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="name">Titre</th>
-                    <th scope="col" class="sort" data-sort="status">Lien</th>
-                    
-                  </tr>
-                </thead>
-                <tbody class="list">
-                    <td class="budget">
-                     Epreuve réseau
-                    </td>
-                    <td class="budget">
-                      <a><i class="ni ni-archive-2"></i></a>
-                     </td>
-                  
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     Epreuve réseau
-                    </td>
-                    <td class="budget">
-                      <a><i class="ni ni-archive-2"></i></a>
-                     </td>
-                  
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     Epreuve réseau
-                    </td>
-                    <td class="budget">
-                      <a><i class="ni ni-archive-2"></i></a>
-                     </td>
-                  
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     Epreuve réseau
-                    </td>
-                    <td class="budget">
-                      <a><i class="ni ni-archive-2"></i></a>
-                     </td>
-                  
-                  </tr>
-                  <tr>
-                    <td class="budget">
-                     Epreuve réseau
-                    </td>
-                    <td class="budget">
-                      <a><i class="ni ni-archive-2"></i></a>
-                     </td>
-                  
-                  </tr>
-                 
+            <div class="row">
+                <div  class="col-6 ml-2"> 
+                  <div class="card" >
+               
+                  <div class="card-body">
+                    <h5 class="card-title">Corrigés Types</h5>
+                    <div class="table-responsive">
+                          <table class="table align-items-center">
+                              <thead class="thead-dark">
+                                  <tr>
+                                      <th scope="col" class="sort" data-sort="name">Titre</th>
+                                      <th scope="col" class="sort" data-sort="budget">Télécharger</th>
+                                      
+                                  </tr>
+                              </thead>
+                              <tbody  class="list">
+                                {% if corr == None%}
+                                {% else %}
+                                {% for cor in corr %}
+                                <tr>
+                                  <td>
+                                  Corrigé Type de : {{cor.Epreuve}} 
+                                  </td>
+                                  <td>
+                                   
+                                  <a href="{% url 'downloadFile' filename=cor.nomFichier %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
 
-                </tbody>
-              </table>
+                                  </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                              </tbody>
+                              </table>
+                            
+                              
+                              
+                            </div>
+                    
+                  </div>
+                </div>
+              </div>
+            <div class="col-5 ml-2">
+              <div class="card" >
+               
+                <div class="card-body">
+                  <h5 class="card-title">Les listes</h5>
+                  <div class="table-responsive">
+                        <table class="table align-items-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">Titre</th>
+                                    <th scope="col" class="sort" data-sort="budget">Télécharger</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody  class="list">
+                              {% if nomfSIQ == None %}
+                              {% else %}
+                              <tr>
+                                <td>
+                                 Liste des Candidats SIT
+                                </td>
+                                <td>
+                                  <a href="{% url 'downloadFile' filename=nomfSIT %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
+
+
+                                </td>
+                              </tr>
+                              {% endif %}
+                              {% if nomfSIQ == None %}
+                              {% else %}
+                              <tr>
+                                <td>
+                                 Liste des Candidats SIQ
+                                </td>
+                                <td>
+                                  <a href="{% url 'downloadFile' filename=nomfSIQ %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
+
+                                </td>
+                              </tr>
+                              {% endif %}
+                              
+                              {% if sallesit == None %}
+                              {% else %}
+                              <tr>
+                                <td>
+                                Affectation des salles pour les SIT
+                                </td>
+                                <td>
+                                  <a href="{% url 'downloadFile' filename=sallesit %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
+
+
+                                </td>
+                              </tr>
+                              {% endif %}
+                              {% if sallesiq == None %}
+                              {% else %}
+                              <tr>
+                                <td>
+                                Affectation des salles pour les SIQ
+                                </td>
+                                <td>
+                                  <a href="{% url 'downloadFile' filename=sallesiq %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
+
+
+                                </td>
+                              </tr>
+                              {% endif%}
+                              {% if surv == None %}
+                              {% else %}
+                              <tr>
+                                <td>
+                                 Liste des surveillants
+                                </td>
+                                <td>
+
+                                  <a href="{% url 'downloadFile' filename=surv %}" class="btn  btn-primary" > <i class="ni ni-bold-down text-white"></i></a>
+
+                                </td>
+                              </tr>
+                              {% endif %}
+                             
+                            </tbody>
+                            </table>
+                          
+                            
+                            
+                          </div>
+                  
+                </div>
+              </div>
             
             </div>
-          
-           
+            </div>
             
           </div>
         </div>
       </div>
           
       </div>
+    
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">

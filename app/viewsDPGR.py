@@ -164,7 +164,56 @@ def dashboard_DPGR(request):
     return render(request,'dpgr/dashboard_dpgr.html',{})
 
 def Mesdocuments_DPGR(request):
-    return render(request,'dpgr/Mesdocuments_DPGR.html',{})
+    try:
+        corr=CorrigesType.objects.all() 
+      
+    except Fichiers.DoesNotExist:
+        corr=None
+
+    try:
+        s=Fichiers.objects.get(type="salle_siq")
+        sallesiq=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        sallesiq=None  
+    
+    try:
+        s=Fichiers.objects.get(type="salle_sit")
+        sallesit=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        sallesit=None    
+    
+    try:
+        s=Fichiers.objects.get(type="surv")
+        surv=getattr(s,"filename")   
+      
+    except Fichiers.DoesNotExist:
+        surv=None
+
+    try:
+        siq=Specialite.objects.get(titre="SIQ")
+        canSiq=ListCandidats.objects.get(idSpecialite=siq)
+        nomfSIQ = getattr(canSiq, "nomFichier")   
+      
+    except ListCandidats.DoesNotExist:
+        canSiq=None
+        nomfSIQ = None 
+
+    try:
+        sit=Specialite.objects.get(titre="SIT")
+        canSit=ListCandidats.objects.get(idSpecialite=sit)
+        nomfSIT = getattr(canSit, "nomFichier")
+
+    except ListCandidats.DoesNotExist:
+        canSit=None
+        nomfSIT = None        
+      
+
+    return render(request,'dpgr/Mesdocuments_DPGR.html', 
+    {"corr":corr,"sallesiq":sallesiq,"sallesit":sallesit,"surv":surv,
+    "nomfSIQ":nomfSIQ,"nomfSIT":nomfSIT})
+    
 
  
    
