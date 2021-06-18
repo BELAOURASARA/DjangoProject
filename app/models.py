@@ -35,10 +35,11 @@ class Candidat(models.Model):
 class Copie(models.Model):
     matricule=models.ForeignKey(Candidat, on_delete=models.CASCADE)
     code=models.CharField(max_length=100)
-    note=models.IntegerField()
+    note=models.IntegerField(null=True)
+    #epreuve=models.CharField(max_len)
     idepreuve=models.ForeignKey(Epreuve, on_delete=models.CASCADE)
-    isvalidated=models.BooleanField()
-    subi3eme=models.BooleanField()
+    #isvalidated=models.BooleanField()
+    subi3eme=models.BooleanField(null=True)
 class table_inter(models.Model):
     id_correcteur=models.ForeignKey(Correcteur, on_delete=models.CASCADE)
     id_copie=models.ForeignKey(Copie, on_delete=models.CASCADE)    
