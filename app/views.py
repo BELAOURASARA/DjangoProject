@@ -17,6 +17,7 @@ import openpyxl
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from .models import InputForm
+from .models import Resultat
 from django.contrib.auth import authenticate,login
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -166,7 +167,39 @@ def ajouter_note(request):
             
     else:
         return render(request,'correcteur/correction.html',{})
-    return render(request,'correcteur/correction.html',{})        
+    return render(request,'correcteur/correction.html',{})   
+def calculer_Resultat_final(request):
+    #candidats=Candidat.objects.filter(exclu=False) 
+    candidat=Candidat.objects.get(matricule=170020)
+    #for candidat in candidats:
+    spec=candidat.specialite
+    s=Specialite.objects.get(titre=spec.titre) 
+    ep1=s.ep1
+    idep1=Epreuve.objects.get(titre=ep1)
+    coeff1=idep1.coeff
+    moyep1=Resultat_module.objects.filter(matricule=candidat,ep=ep1)
+    #return HttpResponse("%s"%moyep1.matricule)
+    #moy1 = moyep1.moy_note
+    return HttpResponse("%s"%moyep1.candidat)
+    """moy1=(moy1)  * (coeff1)
+    ep2=s.ep2
+    idep2=Epreuve.objects.get(titre=ep2)
+    coeff2=idep2.coeff
+    moyep1=Resultat_module(matricule=candidat,ep=ep2)
+    moy2=moyep1.moy_note
+    moy2=(moy2) * (coeff2)
+    ep3=s.ep3
+    idep3=Epreuve.objects.get(titre=ep3)
+    coeff3=idep3.coeff
+    moyep3=Resultat_module(matricule=candidat,ep=ep3)
+    moy3=moyep3.moy_note
+    moy3=(moy3) * (coeff3)
+    coefff=((coeff1) + (coeff2) + (coeff3))
+    moys=(moy1) + (moy2) +(moy3)
+    moyf=(moys)/(coefff)
+    rf=Resultat(matricule=candidat.matricule,resul=moyf)"""
+    rf.save()
+    return HttpResponse("%s"%'kkkk')
 def calculer_resul_module(request):
     candidats=Candidat.objects.filter(exclu=False)
         #candidat=Candidat.objects.get(matricule=170020)
@@ -180,6 +213,7 @@ def calculer_resul_module(request):
         note1=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase1")
         note2=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase2")
         moy=(((note1.note) + (note2.note))/2)
+       
         r=Resultat_module(matricule=candidat,ep=ep1,moy_note=moy)
         r.save()
         ep2=s.ep2 
