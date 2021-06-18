@@ -1,147 +1,145 @@
-
-{% load static %}
+<!--
+“{% load static %}”
+-->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Connexion</title>
- 
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
+  
+  <title>
+    Index
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' %}" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
   <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="{% static 'assets/css/argon.css?v=1.2.0' %}" type="text/css">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'assets/css/soft-ui-dashboard.css?v=1.0.2' %}" rel="stylesheet" />
 </head>
 
-<body class="bg-default">
+<body class="g-sidenav-show   bg-gray-100">
   <!-- Navbar -->
-  <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3  navbar-transparent mt-4">
     <div class="container">
-       <!-- <a class="navbar-brand" href="dashboard.html">
-        <img src="../assets/img/brand/white.png">
-      </a>-->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white">
+        ESI concours
+      </a>
+      <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon mt-2">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </span>
       </button>
-      <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
-        <div class="navbar-collapse-header">
-          <div class="row">
-            <!--<div class="col-6 collapse-brand">
-              <a href="dashboard.html">
-                <img src="../assets/img/brand/blue.png">
-              </a>
-            </div>-->
-            <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
+      <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            
+          </li>
+          <li class="nav-item">
+            
+          </li>
+          <li class="nav-item">
+            
+          </li>
+          <li class="nav-item">
+           
+          </li>
+        </ul>
+        <ul class="navbar-nav d-lg-block d-none">
+          <li class="nav-item">
+            <a href="#" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-light">Se Connecter</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-  <!-- Main content -->
-  <div class="main-content">
-    <!-- Header -->
-    <div class="header bg-gradient-primary py-2 py-lg-6 pt-lg-9">
-
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
-    </div>
-    <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-3">
-          <div class="card bg-secondary border-0 mb-0">
-            <div class="card-header bg-transparent pb-2">
-              <div class="btn-wrapper text-center">
-                <a href="https://esi.dz/">
-                  <span ><img src=""></span>
-                </a>
-              </div>
-              <div class="text-muted text-center mt-2 mb-3"><h1>Connexion</h1></div>
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              {% if next %}  
-              {% if user.is_authenticated %}
-              <p>Your account doesn't have access to this page. To proceed,
-              please login with an account that has access.</p>
-              {% else %}
-              <p>Please login to see this page.</p>
-             {% endif %}
-             {% endif %}
-              <form role="form" method="POST" action="{% url 'login' %}" >
-                {% csrf_token %}
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" name="username" placeholder="Email" type="email" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-merge input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" name="password" placeholder="Mot de passe" type="password">
-            
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Enregistrer Mot de Passe </span>
-                  </label>
-                </div>
-                <div class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="login">
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Mot de passe oublié </small></a>
-            </div>-
+  <!-- End Navbar -->
+  <section class="h-80-vh ">
+    <div class="page-header align-items-start section-height-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('../assets/img/theme/curved0.jpg');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">Bonjour !</h1>
+            <p class="text-lead text-white"> ESI concours,Nous facilitons l'opéartion du concours .</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Footer -->
-  <footer class="py-5" id="footer-main">
     <div class="container">
-      <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-          <div class="copyright text-center text-xl-left text-muted">
-            &copy; 2021 <a href="https://www.esi.com" class="font-weight-bold ml-1" target="_blank">ESI</a>
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div class="card z-index-0">
+            <div class="card-header text-center pt-4">
+              <h5>Connexion</h5>
+            </div>
+            <div class="row px-xl-5 px-sm-4 px-3">
+            </div>
+            <div class="card-body">
+              <form role="form text-left">
+                <div class="mb-3">
+                  <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                </div>
+                <div class="form-check form-check-info text-left">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    J'accepte <a href="javascript:;" class="text-dark font-weight-bolder">les termes et les conditions</a>
+                  </label>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2"> Se connecter</button>
+                </div>
+
+              </form>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+       
+       
+      </div>
+      <div class="row mt-4">
+        <div class="col-8 mx-auto text-center mt-1">
+          <p class="mb-0 text-secondary">
+            Copyright © <script>
+              document.write(new Date().getFullYear())
+            </script> ESI
+          </p>
         </div>
       </div>
     </div>
   </footer>
-  <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
-  <script src="{% static 'assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'assets/css/argon.css'  %}" type="text/css">
-  <!-- Argon JS -->
-  <script src="{% static 'assets/js/argon.js?v=1.2.0' %}"></script>
+  <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+  <!--   Core JS Files   -->
+  <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+  <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/plugins/smooth-scrollbar.min.js' %}"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+ 
 </body>
 
 </html>
-

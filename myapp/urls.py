@@ -25,6 +25,8 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
+    path('', views.index),
+
     path('calculer_resul_module/', views.calculer_resul_module, name='calculer_resul_module'),
     #path('create_epreuve/', views.create_epreuve, name='create_epreuve'),
     path('coder/', views.coder, name='coder'),
@@ -37,18 +39,15 @@ urlpatterns = [
    # path('login/', views.login_page, name='login_page'),
    # path('loginacc/', views.loginn, name='loginacc'),
    # path('accounts/', include('django.contrib.auth.urls')),
-    path('', views.index),
+   
     path('redirection/', views.redirection, name='redirection'),
 
     #path('login/', views.user_login, name='login'),
     path('logout/', views.logout, name='logout'),
 
     path('accounts/', include('django.contrib.auth.urls')),
-   
-   
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
-    # path('downloadFile/', views.downloadFile, name='downloadFile'),
     path('downloadFile/<str:filename>', views.downloadFile, name='downloadFile'),
 
     #coté DE 
