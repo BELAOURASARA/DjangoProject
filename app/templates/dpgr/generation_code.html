@@ -205,6 +205,7 @@
     <div class="row">
       <div class="col-xl-12">
         <div class="card">
+          {% if copies is None %}
           <div class="card-header border-0">
             <h3 class="mb-0">
            Génération code Anonymat 
@@ -212,6 +213,7 @@
           </div>
           <div class="row">
               <div  class="col-12 ml-2"> 
+               
                 <div class="card" >
                
                  <div class="card-body">
@@ -236,19 +238,14 @@
                           </tr>
                       </thead>
                       <tbody  class="list">
+                        {% for can in cand %}
                         <tr>
-                          <td>
-                           12224
-                          </td>
-                          <td>
-   DAOUDI
-   
-                          </td>
-                          <td>
-                            KHENSA
-                          </td>
+                         <td> {{can.matricule}}</td>
+                         <td> {{can.nom}}</td>
+                         <td> {{can.prenom}}</td>
                         
                         </tr>
+                        {% endfor %}
                       
                         
                       </tbody>
@@ -257,37 +254,31 @@
                       
                       
                     </div>
+                    {% else %}
    <!--Section anonymat -->
-   <h4 class="card-title mt-3">Tableau de Correspondance </h4>
+   <h4 class="card-title mt-3 ml-4">Tableau de Correspondances </h4>
                 <div class="table-responsive">
                   <table class="table align-items-center">
                       <thead class="thead-dark">
                           <tr>
                               <th scope="col" class="sort" data-sort="name">Matricule</th>
+                              <th scope="col" class="sort" data-sort="budget">Nom Epreuve</th>
                               <th scope="col" class="sort" data-sort="budget">Code copie 1</th>
+                              <th scope="col" class="sort" data-sort="budget">Nom Epreuve</th>
                               <th scope="col" class="sort" data-sort="budget">Code copie 2</th>
+                              <th scope="col" class="sort" data-sort="budget">Nom Epreuve</th>
                               <th scope="col" class="sort" data-sort="budget">Code copie 3</th>
                               
                           </tr>
                       </thead>
                       <tbody  class="list">
+                        {% for cor in corres %}
                         <tr>
-                          <td>
-                           12224
-                          </td>
-                          <td>
-                            20000
-   
-                          </td>
-                          <td>
-                          20001
-                          </td>
-                          <td>
-                            2044445
-                            </td>
-                        
+                            {% for cell in cor %}
+                            <td> {{cell}} </td>
+                            {% endfor %}
                         </tr>
-                      
+                       {% endfor %}
                         
                       </tbody>
                       </table>
@@ -298,6 +289,7 @@
               </div>
             </div>         
          </div>
+         {% endif %}
          <!--Section Tableau présence-->
          
       

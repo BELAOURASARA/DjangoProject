@@ -35,8 +35,6 @@ def random_number(request):
     return HttpResponse("%s"%r)
     
 def generer_code(request):
-    #r1=request.POST.get('valeur1')
-    #r2=request.POST.get('valeur2')
     if request.method == 'POST':
         r1=int(request.POST.get('valeur1'))
         r2=int(request.POST.get('valeur2'))
@@ -54,17 +52,13 @@ def generer_code(request):
                 spec=candidat.specialite
                 s=Specialite.objects.get(titre=spec.titre)
                 if not n:
-                
-                
+            
                     ep1=s.ep1
                     e=Epreuve.objects.get(titre=ep1)
                     v1=random.randint(r1,r2)
                     n1=Copie(matricule=candidat,code=v1,idepreuve=e)
                     n1.save()
-                    
-                    
-                    
-                
+ 
                     ep2=s.ep2
                     e=Epreuve.objects.get(titre=ep2)
                     v2=random.randint(r1,r2)
@@ -81,11 +75,7 @@ def generer_code(request):
                     n1=Copie(matricule=candidat,code=v3,idepreuve=e)
                     n1.save()
                 else:
-                    
-                    
-                    
-                        
-                        
+                       
                     ep1=s.ep1
                     e=Epreuve.objects.get(titre=ep1)
                     v1=random.randint(r1,r2)
@@ -94,10 +84,7 @@ def generer_code(request):
                             v1=random.randint(r1,r2)
                     n1=Copie(matricule=candidat,code=v1,idepreuve=e)
                     n1.save()
-                    
-                    
-                    
-                    
+             
                     ep2=s.ep2
                     e=Epreuve.objects.get(titre=ep2)
                     v2=random.randint(r1,r2)
@@ -106,8 +93,7 @@ def generer_code(request):
                             v2=random.randint(r1,r2)
                     n1=Copie(matricule=candidat,code=v2,idepreuve=e)
                     n1.save()
-                    
-                    
+                 
                     
                     ep3=s.ep3
                     e=Epreuve.objects.get(titre=ep3)
@@ -117,9 +103,30 @@ def generer_code(request):
                             v3=random.randint(r1,r2)
                     n1=Copie(matricule=candidat,code=v3,idepreuve=e)
                     n1.save()
+        return redirect('generer_code')           
                     
     else :
-       return render(request,'dpgr/generation_code.html',{})     
+        copies=Copie.objects.all()
+        cand=Candidat.objects.filter(exclu=False)
+        correspondance = list()
+        if not(copies):
+            copies=None
+        else :    
+           
+            for ca in cand :
+                cops=Copie.objects.filter(matricule=ca)
+                row_data = list()
+                row_data.append(str(ca.matricule))
+                for co in cops :
+                    code=getattr(co,"code")
+                    eprv=getattr(co,"idepreuve")
+                    epreuve=eprv.titre
+                    row_data.append(str(epreuve))
+                    row_data.append(str(code))
+                
+                correspondance.append(row_data)
+        
+        return render(request,'dpgr/generation_code.html',{"copies":copies,"cand":cand,"corres":correspondance })    
             
             
            
@@ -362,7 +369,7 @@ def create_candidat(request):
         return render(request,'index.html',{})
         
 def create_epreuve(request):    
-        titree=('ASI')
+        titree=('BDM')
         coefff=(3)
         ep=Epreuve(titre=titree,coeff=coefff)
         ep.save()
