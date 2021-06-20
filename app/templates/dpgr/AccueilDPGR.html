@@ -61,7 +61,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/login">
+              <a class="nav-link" href="/logout">
                 <i class="ni ni-key-25 text-info"></i>
                 <span class="nav-link-text">Déconnexion</span>
               </a>
@@ -260,7 +260,7 @@
                             </div>
                             {% else %}
                             <a href="{% url 'downloadFile' filename=nomfSIQ %}">
-                              {{  nomfSIQ }}
+                              <h4 class="text-primary ml-4" > {{  nomfSIQ }}</h4>
                             </a>
                              {% endif %}
                            <div class="card-header border-0">
@@ -278,7 +278,7 @@
                           </div>
                           {% else %}
                              <a href="{% url 'downloadFile' filename=nomfSIT %}">
-                               {{  nomfSIT }}
+                              <h4 class="text-primary ml-4" > {{  nomfSIT }}</h4>
                              </a>
                           {% endif %}
 

@@ -37,96 +37,100 @@ def random_number(request):
 def generer_code(request):
     #r1=request.POST.get('valeur1')
     #r2=request.POST.get('valeur2')
-    r1=int(request.POST.get('valeur1'))
-    r2=int(request.POST.get('valeur2'))
-    exist=False
-    v1=0
-    v2=0
-    v3=0
-    candidats=Candidat.objects.filter(exclu=False)
+    if request.method == 'POST':
+        r1=int(request.POST.get('valeur1'))
+        r2=int(request.POST.get('valeur2'))
+        exist=False
+        v1=0
+        v2=0
+        v3=0
+        candidats=Candidat.objects.filter(exclu=False)
 
-    for candidat in candidats:
-           
-            matricule=candidat
+        for candidat in candidats:
             
-            n=Copie.objects.all()
-            spec=candidat.specialite
-            s=Specialite.objects.get(titre=spec.titre)
-            if not n:
-               
-              
-                ep1=s.ep1
-                e=Epreuve.objects.get(titre=ep1)
-                v1=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v1,idepreuve=e)
-                n1.save()
+                matricule=candidat
                 
-                  
+                n=Copie.objects.all()
+                spec=candidat.specialite
+                s=Specialite.objects.get(titre=spec.titre)
+                if not n:
                 
-               
-                ep2=s.ep2
-                e=Epreuve.objects.get(titre=ep2)
-                v2=random.randint(r1,r2)
-                while (v2 == v1):
+                
+                    ep1=s.ep1
+                    e=Epreuve.objects.get(titre=ep1)
+                    v1=random.randint(r1,r2)
+                    n1=Copie(matricule=candidat,code=v1,idepreuve=e)
+                    n1.save()
+                    
+                    
+                    
+                
+                    ep2=s.ep2
+                    e=Epreuve.objects.get(titre=ep2)
                     v2=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v2,idepreuve=e)
-                n1.save()
-               
-                ep3=s.ep3
-                e=Epreuve.objects.get(titre=ep3)
-                v3=random.randint(r1,r2)
-                while (v3 == v1) or (v3 == v1):
-                    v3=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v3,idepreuve=e)
-                n1.save()
-            else:
-                
-                   
-                   
-                    
-                    
-                ep1=s.ep1
-                e=Epreuve.objects.get(titre=ep1)
-                v1=random.randint(r1,r2)
-                for co in n:
-                    while (v1 == co.code):
-                        v1=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v1,idepreuve=e)
-                n1.save()
-                
-                
-                
-                
-                ep2=s.ep2
-                e=Epreuve.objects.get(titre=ep2)
-                v2=random.randint(r1,r2)
-                for co in n:
-                    while (v2 == co.code) or (v2 == v1):
+                    while (v2 == v1):
                         v2=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v2,idepreuve=e)
-                n1.save()
+                    n1=Copie(matricule=candidat,code=v2,idepreuve=e)
+                    n1.save()
                 
-                
-                
-                ep3=s.ep3
-                e=Epreuve.objects.get(titre=ep3)
-                v3=random.randint(r1,r2)
-                for co in n:
-                    while (v3 == co.code) or (v3 == v1) or (v3 == v2):
+                    ep3=s.ep3
+                    e=Epreuve.objects.get(titre=ep3)
+                    v3=random.randint(r1,r2)
+                    while (v3 == v1) or (v3 == v1):
                         v3=random.randint(r1,r2)
-                n1=Copie(matricule=candidat,code=v3,idepreuve=e)
-                n1.save()
-                
-    return HttpResponse("%s"%'kkkk')      
+                    n1=Copie(matricule=candidat,code=v3,idepreuve=e)
+                    n1.save()
+                else:
+                    
+                    
+                    
+                        
+                        
+                    ep1=s.ep1
+                    e=Epreuve.objects.get(titre=ep1)
+                    v1=random.randint(r1,r2)
+                    for co in n:
+                        while (v1 == co.code):
+                            v1=random.randint(r1,r2)
+                    n1=Copie(matricule=candidat,code=v1,idepreuve=e)
+                    n1.save()
+                    
+                    
+                    
+                    
+                    ep2=s.ep2
+                    e=Epreuve.objects.get(titre=ep2)
+                    v2=random.randint(r1,r2)
+                    for co in n:
+                        while (v2 == co.code) or (v2 == v1):
+                            v2=random.randint(r1,r2)
+                    n1=Copie(matricule=candidat,code=v2,idepreuve=e)
+                    n1.save()
+                    
+                    
+                    
+                    ep3=s.ep3
+                    e=Epreuve.objects.get(titre=ep3)
+                    v3=random.randint(r1,r2)
+                    for co in n:
+                        while (v3 == co.code) or (v3 == v1) or (v3 == v2):
+                            v3=random.randint(r1,r2)
+                    n1=Copie(matricule=candidat,code=v3,idepreuve=e)
+                    n1.save()
+                    
+    else :
+       return render(request,'dpgr/generation_code.html',{})     
             
             
            
 
 def index(request) :
-    return render(request,'index.html', {})
-
+    return redirect('login')
+def R_DPGR(request) :
+    return render(request,'dpgr/resultat_DPGR.html',{})
 def coder(request) :
     return render(request,'generation_code.html', {})
+
 def logout(request) :
     return redirect('login')
 
@@ -168,38 +172,132 @@ def ajouter_note(request):
     else:
         return render(request,'correcteur/correction.html',{})
     return render(request,'correcteur/correction.html',{})   
+"""========================affichage des resultats=========================================="""   
+def affichage_resultat_spec(request):
+    calculer_resul_module(request)
+    calculer_Resultat_final(request)
+    
+    if request.method == 'POST':
+        validate=0
+        candidats=Candidat.objects.filter(exclu=False) 
+        #candidat=Candidat.objects.get(matricule=170020)
+        selected_value=request.POST['drop1']
+        if (selected_value =="SIQ"):
+            
+            excel_data = list()
+            for candidat in candidats:
+                if (candidat.specialite.titre == "SIQ"):
+                    #return HttpResponse("%s"%'kkkk')
+                    row_data = list()
+                    spec=candidat.specialite
+                    ep1=spec.ep1
+                    Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+                    res=Resul.moy_note
+                    row_data.append(Resul.matricule.matricule)
+                    row_data.append(Resul.matricule.nom)
+                    row_data.append(Resul.matricule.prenom)
+                    row_data.append(res)
+                    ep2=spec.ep2
+                    Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+                    res1=Resul1.moy_note
+                    row_data.append(res1)
+                    ep3=spec.ep3
+                    Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+                    res2=Resul2.moy_note
+                    row_data.append(res2)
+                    rf=Resultat.objects.get(matricule=candidat)
+                    moy=rf.resul
+                    row_data.append(moy)
+                    rank =Resultat.objects.filter(resul=moy).count()
+                    row_data.append(rank)
+                    if ((rank == 1) or (rank == 2) or (rank == 3)):
+                        row_data.append('admis')
+                    else:
+                        row_data.append('non admis')   
+                    #return HttpResponse("%s"% row_data[0])
+                    excel_data.append(row_data)
+                
+            validate=1
+        else:  
+                excel_data = list()
+                for candidat in candidats:
+                    if (candidat.specialite.titre == "SIT"):
+                        #return HttpResponse("%s"%'kkkk')
+                        row_data = list()
+                        spec=candidat.specialite
+                        ep1=spec.ep1
+                        Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+                        res=Resul.moy_note
+                        row_data.append(Resul.matricule.matricule)
+                        row_data.append(Resul.matricule.nom)
+                        row_data.append(Resul.matricule.prenom)
+                        row_data.append(res)
+                        ep2=spec.ep2
+                        Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+                        res1=Resul1.moy_note
+                        row_data.append(res1)
+                        ep3=spec.ep3
+                        Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+                        res2=Resul2.moy_note
+                        row_data.append(res2)
+                        rf=Resultat.objects.get(matricule=candidat)
+                        moy=rf.resul
+                        row_data.append(moy)
+                        rank =Resultat.objects.filter(resul=moy).count()
+                        row_data.append(rank)
+                        if ((rank==1) or (rank ==2) or (rank==3)):
+                            row_data.append('admis')
+                        else:
+                            row_data.append('non admis')    
+                        #return HttpResponse("%s"% row_data[0])
+                        excel_data.append(row_data)
+                    
+                validate=1  
+    return render(request, "dpgr/resultat_DPGR.html", {"excel_data":excel_data,"validate":validate})
+       
+
+
+"""===================================== calcul des resultats ================================="""          
+#fonction permet de calculer  la moyennes de chaque etudiant  pour tous les etudiants
+
 def calculer_Resultat_final(request):
-    #candidats=Candidat.objects.filter(exclu=False) 
-    candidat=Candidat.objects.get(matricule=170020)
-    #for candidat in candidats:
-    spec=candidat.specialite
-    s=Specialite.objects.get(titre=spec.titre) 
-    ep1=s.ep1
-    idep1=Epreuve.objects.get(titre=ep1)
-    coeff1=idep1.coeff
-    moyep1=Resultat_module.objects.filter(matricule=candidat,ep=ep1)
-    #return HttpResponse("%s"%moyep1.matricule)
-    #moy1 = moyep1.moy_note
-    return HttpResponse("%s"%moyep1.candidat)
-    """moy1=(moy1)  * (coeff1)
-    ep2=s.ep2
-    idep2=Epreuve.objects.get(titre=ep2)
-    coeff2=idep2.coeff
-    moyep1=Resultat_module(matricule=candidat,ep=ep2)
-    moy2=moyep1.moy_note
-    moy2=(moy2) * (coeff2)
-    ep3=s.ep3
-    idep3=Epreuve.objects.get(titre=ep3)
-    coeff3=idep3.coeff
-    moyep3=Resultat_module(matricule=candidat,ep=ep3)
-    moy3=moyep3.moy_note
-    moy3=(moy3) * (coeff3)
-    coefff=((coeff1) + (coeff2) + (coeff3))
-    moys=(moy1) + (moy2) +(moy3)
-    moyf=(moys)/(coefff)
-    rf=Resultat(matricule=candidat.matricule,resul=moyf)"""
-    rf.save()
-    return HttpResponse("%s"%'kkkk')
+    candidats=Candidat.objects.filter(exclu=False) 
+    #copies=Copies.objects.all() 
+    #candidat=Candidat.objects.get(matricule=170020)
+    for Candidat in candidats:
+        #matricule=copie.matricule
+        #for candidat in candidats:
+        #candidat=Candidat.objects.get(matricule=matricule)
+        spec=candidat.specialite
+        ep1=spec.ep1
+        s=Specialite.objects.get(titre=spec.titre) 
+        idep1=Epreuve.objects.get(titre=ep1)
+        coeff1=idep1.coeff
+        moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+        #return HttpResponse("%s"%moyep1)
+        moy1 = moyep1.moy_note
+        #return HttpResponse("%s"%moyep1.moy_note)
+        moy1=(moy1)  * (coeff1)
+        ep2=s.ep2
+        idep2=Epreuve.objects.get(titre=ep2)
+        coeff2=idep2.coeff
+        moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+        moy2=moyep1.moy_note
+        moy2=(moy2) * (coeff2)
+        ep3=s.ep3
+        idep3=Epreuve.objects.get(titre=ep3)
+        coeff3=idep3.coeff
+        moyep3=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+        moy3=moyep3.moy_note
+        moy3=(moy3) * (coeff3)
+        coefff=((coeff1) + (coeff2) + (coeff3))
+        moys=(moy1) + (moy2) +(moy3)
+        moyf=(moys)/(coefff)
+        rf=Resultat(matricule=candidat,resul=moyf)
+        rf.save()
+    #return HttpResponse("%s"%'kkkk')
+
+#fonction permet de calculer  la moyenne entre entre les 2 corrections pour chaque epreuve 
 def calculer_resul_module(request):
     candidats=Candidat.objects.filter(exclu=False)
         #candidat=Candidat.objects.get(matricule=170020)
@@ -234,9 +332,9 @@ def calculer_resul_module(request):
         moy3=(((note1.note)+ (note2.note))/2)
         r=Resultat_module(matricule=candidat,ep=ep3,moy_note=moy3)
         r.save()
-    return HttpResponse("%s"%'kkkk')    
+    #return HttpResponse("%s"%'kkkk') #  
 
-
+"""""""""""""""""""""""""""""""""""des créations"""""""""""""""""""""""""""""""""""
 def create_specialite(request):
         title=('SIQ')
         ep1=('SYS')
@@ -270,8 +368,11 @@ def create_epreuve(request):
         ep.save()
         return HttpResponse("%s"%titree)
         #return render(request,'index.html',{})
+
+"""===========================des redirctions=================================="""       
 def correction(request):
-    return render(request,'correcteur/correction.html')
+    return render(request,'correcteur/correction.html',{})
+
 def redirection(request):
     idd=request.user.id
     u = User.objects.get(id=idd)
