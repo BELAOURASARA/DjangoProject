@@ -245,7 +245,6 @@
               <table  id="mytable" class="table align-items-center table-flush" >
                 <thead class="thead-light">
                  
-                    <th scope="col" class="sort" data-sort="name">Rang</th>
                     <th scope="col" class="sort" data-sort="budget">Matricule</th>
                     <th scope="col" class="sort" data-sort="status">Nom</th>
                     <th scope="col" class="sort" data-sort="status">Prénom</th>
@@ -263,9 +262,6 @@
                       {% for row in excel_data %}
                         <tr >
                           <td class="budget">
-                            {{row.7}}
-                          </td>
-                          <td class="budget">
                             {{row.0}}
                           </td>
                           <td class="budget">
@@ -282,13 +278,14 @@
                           </td>
                           <td class="budget">
                             {{row.5}}
+                          </td>
+                          <td class="budget">
+                            {{row.6}}
                             </td>
                             <td class="budget">
-                              {{row.6}}
+                              {{row.7}}
                               </td>
-                              <td >
-                                {{row.8}} 
-                              </td>
+                              
                         
                         </tr>
                         
@@ -326,19 +323,33 @@
   <!-- Core -->
   <script>
 
-function myFunction() {
-
-  var nbelement =document.getElementById("admis").value;
-  
-  for (i=1;i<=nbelement;i++)
-  {
-
-  var x = document.getElementById("mytable").rows[i].cells;
-  x[8].innerHTML = "Admis";
-  }
-}
-
-  </script>
+    function myFunction() {
+    
+      var nbelement =document.getElementById("admis").value;
+      var tableData = document.getElementById('mytable').getElementsByTagName('tbody').item(0);
+    
+    // Read table row nodes.
+    var rowData = tableData.getElementsByTagName('tr'); 
+    
+    for(var i = 0; i < rowData.length - 1; i++) {
+        for(var j = 0; j < rowData.length - (i + 1); j++) {
+    
+            //Swap row nodes if short condition matches
+            if(parseInt(rowData.item(j).getElementsByTagName('td').item(6).innerHTML) < parseInt(rowData.item(j+1).getElementsByTagName('td').item(6).innerHTML)) {
+                tableData.insertBefore(rowData.item(j+1),rowData.item(j));
+            }
+        }
+    }
+      
+      for (i=1;i<=nbelement;i++)
+      {
+    
+      var x = document.getElementById("mytable").rows[i].cells;
+      x[7].innerHTML = "Admis";
+      }
+    }
+    
+      </script>
   <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/js-cookie/js.cookie.js' %}"></script>
