@@ -25,8 +25,9 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
-    path('', views.index),
-
+    path('R_DPGR/', views.R_DPGR, name='R_DPGR'),
+    path('affichage_resultat_spec', views.affichage_resultat_spec, name='affichage_resultat_spec'),
+    path('calculer_Resultat_final/', views.calculer_Resultat_final, name='calculer_Resultat_final'),
     path('calculer_resul_module/', views.calculer_resul_module, name='calculer_resul_module'),
     #path('create_epreuve/', views.create_epreuve, name='create_epreuve'),
     path('coder/', views.coder, name='coder'),
@@ -49,7 +50,7 @@ urlpatterns = [
     path('importFile/', views.importFile, name='importFile'),
     path('uploadFile/', views.uploadFile, name='uploadFile'),
     path('downloadFile/<str:filename>', views.downloadFile, name='downloadFile'),
-
+    path('', views.index),
     #coté DE 
     path('AccueilDE/', viewsDE.AccueilDE, name='AccueilDE'),
     

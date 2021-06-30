@@ -106,7 +106,7 @@ class InputForm(forms.ModelForm):
 class Resultat_module(models.Model):
     matricule=models.ForeignKey(Candidat, on_delete=models.CASCADE)
     ep=models.CharField(max_length=100)
-    moy_note=models.IntegerField()  
+    moy_note=models.FloatField()  
 class Resultat(models.Model):
     matricule=models.ForeignKey(Candidat,on_delete=models.CASCADE)
     resul=models.IntegerField()     
