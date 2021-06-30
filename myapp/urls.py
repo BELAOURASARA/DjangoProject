@@ -25,6 +25,8 @@ from django.conf.urls import include
 app_name = "app"
 
 urlpatterns = [
+   
+    path('calculer_resul_module_epr', views.calculer_resul_module_epr,name='calculer_resul_module_epr'),
     path('R_DPGR/', views.R_DPGR, name='R_DPGR'),
     path('affichage_resultat_spec', views.affichage_resultat_spec, name='affichage_resultat_spec'),
     path('calculer_Resultat_final/', views.calculer_Resultat_final, name='calculer_Resultat_final'),
