@@ -144,41 +144,64 @@ def logout(request) :
 
 #def note_validee():
 def ajouter_note(request):
-    if request.method == 'POST': 
-        #print (request.POST.get('note')) 
-        note=int(request.POST.get('note'))
-        #return HttpResponse("%s"%note)
-        code=int(request.POST.get('code'))
-        #return HttpResponse("%s"%code)
-        
-        
-      
-        cop=Copie.objects.get(code=code)
-        cop.note=note
-        #idd=cop.id
-        #co=Copie(code=258963,note=note,isvalidated=True,idcorrecteur=18,idepreuve=3,matricule=123654)
-        cop.save()
-        idc=cop.id
-        id_corr=request.user.id
-        corr=Correcteur.objects.get(id=id_corr)
-        table=table_inter_correction.objects.all()
-        if not  table:
+
+
+    #print (request.POST.get('note')) 
+    note=int(request.POST.get('note'))
+    #return HttpResponse("%s"%note)
+    code=int(request.POST.get('code'))
+    #return HttpResponse("%s"%code)
+    
+    
+    
+    cop=Copie.objects.get(code=code)
+    cop.note=note
+    #idd=cop.id
+    #co=Copie(code=258963,note=note,isvalidated=True,idcorrecteur=18,idepreuve=3,matricule=123654)
+    cop.save()
+    idc=cop.id
+    id_corr=request.user.id
+    corr=Correcteur.objects.get(id=id_corr)
+    table=table_inter_correction.objects.all()
+    if not  table:
+        re1=table_inter_correction(phase='phase1',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
+        re1.save()  
+    else:   
+        try:
+            s=table_inter_correction.objects.get(id_copie_id=cop.id)
+            re2=table_inter_correction(phase='phase2',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
+            re2.save()       
+        except table_inter_correction.DoesNotExist :
             re1=table_inter_correction(phase='phase1',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
-            re1.save()  
-        else:   
-            try:
-                s=table_inter_correction.objects.get(id_copie_id=cop.id)
-                re2=table_inter_correction(phase='phase2',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
-                re2.save()       
-            except table_inter_correction.DoesNotExist :
-                re1=table_inter_correction(phase='phase1',note=note,id_copie_id=cop.id,id_correcteur_id=corr.id)
-                re1.save()       
-           
-       
-            
-    else:
-        return render(request,'correcteur/correction.html',{})
-    return render(request,'correcteur/correction.html',{})   
+            re1.save()       
+        
+    return redirect('/correction')
+  
+      
+
+"""========================================================================================"""
+def afficher_note(request):
+    id=request.user.id
+    tab=list()
+    note=table_inter_correction.objects.filter(id_correcteur=id)
+    for n in note:
+        tab.append(note.note)
+        idcopie=note.id_copie
+        code=copie.objects.get(id=id_copie)
+        tab.append(code)
+
+
+        
+
+
+
+
+
+
+    
+
+    
+
 """========================affichage des resultats=========================================="""   
 def affichage_resultat_spec(request):
     #calculer_resul_module(request)
@@ -405,7 +428,18 @@ def create_epreuve(request):
 
 """===========================des redirctions=================================="""       
 def correction(request):
-    return render(request,'correcteur/correction.html',{})
+    id=request.user.id
+    
+    tab1=list()
+    note=table_inter_correction.objects.filter(id_correcteur=id)
+    for n in note:
+        tab=list()
+        idcopie=n.id_copie
+        code=Copie.objects.get(id=idcopie.id)
+        tab.append(code.code)
+        tab.append(n.note)
+        tab1.append(tab)
+    return render(request,'correcteur/correction.html',{"tab1":tab1})
 
 def redirection(request):
     idd=request.user.id
@@ -418,7 +452,7 @@ def redirection(request):
           return render(request,'index.html',{})#index
         else:
             if u1.Type==2: 
-                return render(request,'correcteur/correction.html',{})   
+                return render(request,'correcteur/AccueilCorrecteur.html',{})   
 
 def home_page(request):
     return render(request,'app/home.html',{})
