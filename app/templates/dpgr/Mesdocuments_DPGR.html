@@ -31,7 +31,7 @@
      
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          <img src="../assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+          <img src="{% static 'assets/img/brand/logo.png' %}" class="navbar-brand-img' %}" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -39,14 +39,14 @@
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav items -->
           <ul class="navbar-nav">
-            <li class="nav-item ">
+            <li class="nav-item">
               <a class="nav-link" href="/AccueilDPGR">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Accueil</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="/generer_code">
+              <a class="nav-link" href="/generation_code">
                 <i class="ni ni-badge text-success"></i>
                 <span class="nav-link-text">Anonymat</span>
               </a>
@@ -57,10 +57,16 @@
                 <span class="nav-link-text">Tableau de bord</span>
               </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/Mesdocuments_DPGR">
+            <li class="nav-item">
+              <a class="nav-link active" href="/Mesdocuments_DPGR">
                 <i class="ni ni-bullet-list-67 text-default"></i>
                 <span class="nav-link-text">Mes Documents</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link  " href="/R_DPGR">
+                <i class="ni ni-briefcase-24 text-primary"></i>
+                <span class="nav-link-text">Résultats</span>
               </a>
             </li>
             <li class="nav-item">

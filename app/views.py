@@ -186,181 +186,187 @@ def affichage_resultat_spec(request):
     
     if request.method == 'POST':
         validate=0
-        #candidats=Candidat.objects.filter(exclu=False) 
-        candidat=Candidat.objects.get(matricule=170020)
+        candidats=Candidat.objects.filter(exclu=False) 
+        
         selected_value=request.POST['drop1']
         if (selected_value =="SIQ"):
             
             excel_data = list()
-            #for candidat in candidats:
-            if (candidat.specialite.titre == "SIQ"):
-                #return HttpResponse("%s"%'kkkk')
-                row_data = list()
-                spec=candidat.specialite
-                ep1=spec.ep1
-                Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
-                res=Resul.moy_note
-                row_data.append(Resul.matricule.matricule)
-                row_data.append(Resul.matricule.nom)
-                row_data.append(Resul.matricule.prenom)
-                row_data.append(res)
-                ep2=spec.ep2
-                Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
-                res1=Resul1.moy_note
-                row_data.append(res1)
-                ep3=spec.ep3
-                Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
-                res2=Resul2.moy_note
-                row_data.append(res2)
-                rf=Resultat.objects.get(matricule=candidat)
-                moy=rf.resul
-                row_data.append(moy)
-                rank =Resultat.objects.filter(resul=moy).count()
-                row_data.append(rank)   
-                #return HttpResponse("%s"% row_data[0])
-                excel_data.append(row_data)
+            for candidat in candidats:
+                if (candidat.specialite.titre == "SIQ"):
+                    #return HttpResponse("%s"%'kkkk')
+                    row_data = list()
+                    spec=candidat.specialite
+                    ep1=spec.ep1
+                    Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+                    res=Resul.moy_note
+                    row_data.append(Resul.matricule.matricule)
+                    row_data.append(Resul.matricule.nom)
+                    row_data.append(Resul.matricule.prenom)
+                    row_data.append(res)
+                    ep2=spec.ep2
+                    Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+                    res1=Resul1.moy_note
+                    row_data.append(res1)
+                    ep3=spec.ep3
+                    Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+                    res2=Resul2.moy_note
+                    row_data.append(res2)
+                    rf=Resultat.objects.get(matricule=candidat)
+                    moy=rf.resul
+                    row_data.append(moy)
+                  
+                    #return HttpResponse("%s"% row_data[0])
+                    excel_data.append(row_data)
             validate=1
         else:  
-                excel_data = list()
-                for candidat in candidats:
-                    if (candidat.specialite.titre == "SIT"):
-                        #return HttpResponse("%s"%'kkkk')
-                        row_data = list()
-                        spec=candidat.specialite
-                        ep1=spec.ep1
-                        Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
-                        res=Resul.moy_note
-                        row_data.append(Resul.matricule.matricule)
-                        row_data.append(Resul.matricule.nom)
-                        row_data.append(Resul.matricule.prenom)
-                        row_data.append(res)
-                        ep2=spec.ep2
-                        Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
-                        res1=Resul1.moy_note
-                        row_data.append(res1)
-                        ep3=spec.ep3
-                        Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
-                        res2=Resul2.moy_note
-                        row_data.append(res2)
-                        rf=Resultat.objects.get(matricule=candidat)
-                        moy=rf.resul
-                        row_data.append(moy)
-                        rank =Resultat.objects.filter(resul=moy).count()
-                        row_data.append(rank)
-                            
-                        #return HttpResponse("%s"% row_data[0])
-                        excel_data.append(row_data)
-                    
-                validate=1  
+            excel_data = list()
+            for candidat in candidats:
+                if (candidat.specialite.titre == "SIT"):
+                    #return HttpResponse("%s"%'kkkk')
+                    row_data = list()
+                    spec=candidat.specialite
+                    ep1=spec.ep1
+                    Resul=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+                    res=Resul.moy_note
+                    row_data.append(Resul.matricule.matricule)
+                    row_data.append(Resul.matricule.nom)
+                    row_data.append(Resul.matricule.prenom)
+                    row_data.append(res)
+                    ep2=spec.ep2
+                    Resul1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+                    res1=Resul1.moy_note
+                    row_data.append(res1)
+                    ep3=spec.ep3
+                    Resul2=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+                    res2=Resul2.moy_note
+                    row_data.append(res2)
+                    rf=Resultat.objects.get(matricule=candidat)
+                    moy=rf.resul
+                    row_data.append(moy)
+
+                
+                        
+                    #return HttpResponse("%s"% row_data[0])
+                    excel_data.append(row_data)
+                
+            validate=1  
     return render(request, "dpgr/resultat_DPGR.html", {"excel_data":excel_data,"validate":validate})
        
 
 
 """===================================== calcul des resultats ================================="""          
+
 #fonction permet de calculer  la moyennes de chaque etudiant  pour tous les etudiants
 
 def calculer_Resultat_final(request):
-    #candidats=Candidat.objects.filter(exclu=False) 
+    calculer_resul_module(request)
+    candidats=Candidat.objects.filter(exclu=False) 
     #copies=Copies.objects.all() 
-    candidat=Candidat.objects.get(matricule=170025)
-    #for Candidat in candidats:
+    #candidat=Candidat.objects.get(matricule=170025)
+    for Candidat in candidats:
         #matricule=copie.matricule
         #for candidat in candidats:
         #candidat=Candidat.objects.get(matricule=matricule)
-    spec=candidat.specialite
-    ep1=spec.ep1
-    s=Specialite.objects.get(titre=spec.titre) 
-    idep1=Epreuve.objects.get(titre=ep1)
-    coeff1=idep1.coeff
-    moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep1)
-    #return HttpResponse("%s"%moyep1)
-    moy1 = moyep1.moy_note
-    #return HttpResponse("%s"%moyep1.moy_note)
-    moy1=(moy1)  * (coeff1)
-    ep2=s.ep2
-    idep2=Epreuve.objects.get(titre=ep2)
-    coeff2=idep2.coeff
-    moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
-    moy2=moyep1.moy_note
-    moy2=(moy2) * (coeff2)
-    ep3=s.ep3
-    idep3=Epreuve.objects.get(titre=ep3)
-    coeff3=idep3.coeff
-    moyep3=Resultat_module.objects.get(matricule=candidat,ep=ep3)
-    moy3=moyep3.moy_note
-    moy3=(moy3) * (coeff3)
-    coefff=((coeff1) + (coeff2) + (coeff3))
-    moys=(moy1) + (moy2) +(moy3)
-    moyf=(moys)/(coefff)
-    rf=Resultat(matricule=candidat,resul=moyf)
-    rf.save()
-    return HttpResponse("%s"%'kkkk')
+        spec=candidat.specialite
+        ep1=spec.ep1
+        s=Specialite.objects.get(titre=spec.titre) 
+        idep1=Epreuve.objects.get(titre=ep1)
+        coeff1=idep1.coeff
+        moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep1)
+        #return HttpResponse("%s"%moyep1)
+        moy1 = moyep1.moy_note
+        #return HttpResponse("%s"%moyep1.moy_note)
+        moy1=(moy1)  * (coeff1)
+        ep2=s.ep2
+        idep2=Epreuve.objects.get(titre=ep2)
+        coeff2=idep2.coeff
+        moyep1=Resultat_module.objects.get(matricule=candidat,ep=ep2)
+        moy2=moyep1.moy_note
+        moy2=(moy2) * (coeff2)
+        ep3=s.ep3
+        idep3=Epreuve.objects.get(titre=ep3)
+        coeff3=idep3.coeff
+        moyep3=Resultat_module.objects.get(matricule=candidat,ep=ep3)
+        moy3=moyep3.moy_note
+        moy3=(moy3) * (coeff3)
+        coefff=((coeff1) + (coeff2) + (coeff3))
+        moys=(moy1) + (moy2) +(moy3)
+        moyf=(moys)/(coefff)
+        rf=Resultat(matricule=candidat,resul=moyf)
+        rf.save()
+    return render(request,'resultat_DPGR.html',{})
 
 
 #*******************************************************************************#
 def calculer_resul_module_epr(request):
-  
+    
     if request.method == "POST":
         selected_value=request.POST['drop1']
-        return HttpResponse("%s"%selected_value)
+        
         
         ids=table_inter_correction.objects.all()
         #return HttpResponse("%s"%selected_value)
         excel_data = list()
+        local=list()
         for id in ids:
+           
             id_copie=id.id_copie
-            copie=Copie.objects.get(id=id_copie)
-            epreuv=Epreuve.objects.get(id=copie.idepreuve)
-            titre=epreuv.titre
-            tab = list()
-            if (titre==selected_value):
-                note1=table_inter_correction.objects.get(id_copie_id=id_copie,phase="phase1")
-                note2=table_inter_correction.objects.get(id_copie_id=id_copie,phase="phase2")
-                moy=(((note1.note) + (note2.note))/2)
-                tab.append(note1)
-                tab.append(note2)
-                tab.append(moy)
-                excel_data.append(tab)
+            if (id_copie not in local):
+                local.append(id_copie)
+                copie=Copie.objects.get(id=id_copie.id)
+                epreuv=Epreuve.objects.get(id=copie.idepreuve.id)
+                titre=epreuv.titre
+
+                tab = list()
+                if (titre==selected_value):
+                    note1=table_inter_correction.objects.get(id_copie_id=id_copie,phase="phase1")
+                    note2=table_inter_correction.objects.get(id_copie_id=id_copie,phase="phase2")
+                    moy=(((note1.note) + (note2.note))/2)
+                    tab.append(copie.code)
+                    tab.append(note1.note)
+                    tab.append(note2.note)
+                    tab.append(moy)
+                    excel_data.append(tab)
     
-    #return render(request, "dpgr/dashboard_DPGR.html", {"excel_data":excel_data})
+    return render(request, "dpgr/dashboard_DPGR.html", {"excel_data":excel_data})
    
 
 #fonction permet de calculer  la moyenne entre entre les 2 corrections pour chaque epreuve 
 def calculer_resul_module(request):
-    #candidats=Candidat.objects.filter(exclu=False)
-    candidat=Candidat.objects.get(matricule=170025)
-    #for candidat in candidats:    
-    spec=candidat.specialite
-    s=Specialite.objects.get(titre=spec.titre) 
-    ep1=s.ep1
-    idep1=Epreuve.objects.get(titre=ep1)
-    coeff1=idep1.coeff
-    codecopie1=Copie.objects.get(matricule=candidat,idepreuve=idep1)
-    note1=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase1")
-    note2=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase2")
-    moy=(((note1.note) + (note2.note))/2)
+    candidats=Candidat.objects.filter(exclu=False)
     
-    r=Resultat_module(matricule=candidat,ep=ep1,moy_note=moy)
-    r.save()
-    ep2=s.ep2 
-    idep2=Epreuve.objects.get(titre=ep2)
-    coeff1=idep2.coeff
-    codecopie2=Copie.objects.get(matricule=candidat,idepreuve=idep2)
-    note1=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase1")
-    note2=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase2")
-    moy2=(((note1.note) + (note2.note))/2)
-    r=Resultat_module(matricule=candidat,ep=ep2,moy_note=moy2)
-    r.save()
-    ep3=s.ep3
-    idep3=Epreuve.objects.get(titre=ep3)
-    coeff1=idep1.coeff
-    codecopie3=Copie.objects.get(matricule=candidat,idepreuve=idep3)
-    note1=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase1")
-    note2=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase2")
-    moy3=(((note1.note)+ (note2.note))/2)
-    r=Resultat_module(matricule=candidat,ep=ep3,moy_note=moy3)
-    r.save()
-    return HttpResponse("%s"%'kkkk')  
+    for candidat in candidats:    
+        spec=candidat.specialite
+        s=Specialite.objects.get(titre=spec.titre) 
+        ep1=s.ep1
+        idep1=Epreuve.objects.get(titre=ep1)
+        coeff1=idep1.coeff
+        codecopie1=Copie.objects.get(matricule=candidat,idepreuve=idep1)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie1,phase="phase2")
+        moy=(((note1.note) + (note2.note))/2)
+        
+        r=Resultat_module(matricule=candidat,ep=ep1,moy_note=moy)
+        r.save()
+        ep2=s.ep2 
+        idep2=Epreuve.objects.get(titre=ep2)
+        coeff1=idep2.coeff
+        codecopie2=Copie.objects.get(matricule=candidat,idepreuve=idep2)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie2,phase="phase2")
+        moy2=(((note1.note) + (note2.note))/2)
+        r=Resultat_module(matricule=candidat,ep=ep2,moy_note=moy2)
+        r.save()
+        ep3=s.ep3
+        idep3=Epreuve.objects.get(titre=ep3)
+        coeff1=idep1.coeff
+        codecopie3=Copie.objects.get(matricule=candidat,idepreuve=idep3)
+        note1=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase1")
+        note2=table_inter_correction.objects.get(id_copie_id=codecopie3,phase="phase2")
+        moy3=(((note1.note)+ (note2.note))/2)
+        r=Resultat_module(matricule=candidat,ep=ep3,moy_note=moy3)
+        r.save() 
 
 """""""""""""""""""""""""""""""""""des créations"""""""""""""""""""""""""""""""""""
 def create_specialite(request):
