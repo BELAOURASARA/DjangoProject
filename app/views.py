@@ -369,7 +369,7 @@ def create_candidat(request):
         return render(request,'index.html',{})
         
 def create_epreuve(request):    
-        titree=('BDM')
+        titree=('ASI')
         coefff=(3)
         ep=Epreuve(titre=titree,coeff=coefff)
         ep.save()

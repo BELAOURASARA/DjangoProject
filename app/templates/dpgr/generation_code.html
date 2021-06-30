@@ -218,11 +218,12 @@
                
                  <div class="card-body">
                   <h4 class="card-title">Choisir le format du code </h4>
-                  <form role="form" >
+                  <form method="POST" action="{% url 'generer_code' %}"  >
+                    {% csrf_token %}
                     <div class="row">
-                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur min">
-                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur max">
-                    <button class="btn btn-outline-default col-3 ml-2" type="button">Générer</button>
+                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur min" name="valeur1">
+                    <input type="text" class="form-control ml-3 col-4" placeholder="valeur max" name="valeur2">
+                    <button class="btn btn-outline-default col-3 ml-2" type="submit">Générer</button>
                   </form> 
                 </div>
                 <!-- section Liste des présents -->
