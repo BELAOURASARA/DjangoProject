@@ -110,14 +110,7 @@ class Resultat_module(models.Model):
 class Resultat(models.Model):
     matricule=models.ForeignKey(Candidat,on_delete=models.CASCADE)
     resul=models.IntegerField()     
-class UserLaureat(models.Model):
-        # This field is required.
-        user = models.OneToOneField(User,on_delete=models.CASCADE)
-        # These fields are optional
-        ordre=models.IntegerField()
-       
-        def __unicode__(self):
-                return self.user.username    
+
 class SujetThese(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -128,9 +121,6 @@ class SujetThese(models.Model):
         return self.title
 
 
-class Affect(models.Model):
-    sujet = models.ForeignKey(SujetThese, on_delete=models.CASCADE)
-    laureat =  models.ForeignKey(User, on_delete=models.CASCADE)
 
  
 
