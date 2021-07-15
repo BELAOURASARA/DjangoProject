@@ -446,10 +446,10 @@ def redirection(request):
     u = User.objects.get(id=idd)
     u1=Type.objects.get(id=idd)
     if u1.Type==0:   
-     return render(request,'index.html',{})
+     return render(request,'dpgr/AccueilDPGR.html',{})
     else:
         if u1.Type==1:
-          return render(request,'index.html',{})#index
+          return render(request,'de/AccueilDE.html',{}) #index
         else:
             if u1.Type==2: 
                 return render(request,'correcteur/AccueilCorrecteur.html',{})   

@@ -100,7 +100,7 @@ class InputForm(forms.ModelForm):
   
         if commit:
             user.save()
-            t=Type(id=user.id,Type=2)
+            t=Type(id=user.id,Type=1)
             t.save()
         return user
 class Resultat_module(models.Model):

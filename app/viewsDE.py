@@ -139,7 +139,7 @@ def affecterSurveillant(request) :
             nb_total=nb_total+1
         
         request.session['excel'] = excel_data
-        return render(request, "de/AccueilDE", {"file_salle":file})
+        return redirect("AccueilDE")
 
 
 

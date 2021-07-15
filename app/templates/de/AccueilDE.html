@@ -248,7 +248,7 @@
                         
                         <div class="row">
                           {% if surv is None %}
-                          <form action="{% url 'affecterSallesSIT' %}" method="post" enctype="multipart/form-data">
+                          <form action="{% url 'affecterSurveillant' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                           <div class="col-9">                 
                             <input name="Surveillant" class="form-control" type="file" id="formFile" placeholder="Type to search...">
